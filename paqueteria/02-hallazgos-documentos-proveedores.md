@@ -8,17 +8,24 @@
 
 # ⭐ LOS 5 HALLAZGOS IMPORTANTES
 
-## 1. La ingesta ya tiene camino legal e indiscutible — SIN API
+## 1. Nada prohíbe el API — y además hay exports garantizados
 
-El cliente opera dentro de **3 sistemas de iMile**: **DS** (ds.imile.com — tickets y operación),
-**PCS** (pcs.imile.com — cortes semanales, conciliación, facturas) y la **app iMile Driver**
-(entregas, PODs, GPS). Y los manuales de iMile **enseñan a los proveedores a EXPORTAR sus
-bases**: tickets de queja, tickets de arbitraje (columnas documentadas: guía, estación,
-estatus, penalización, monto) y el Excel de "guías a pago" del PCS ("Crear archivo de
-exportación"). Si iMile mismo te capacita para descargar esos archivos, ingerirlos en
-nuestro sistema es incuestionable. **Arrancamos con exports el día 1; el API queda como
-optimización futura.** Y confirmado: ninguno de estos documentos menciona ni prohíbe APIs —
-la supuesta prohibición no vive aquí.
+**En ninguno de los 16 documentos existe mención alguna de APIs — mucho menos una
+prohibición.** La supuesta restricción que le dijeron al cliente NO vive en su
+documentación. Y ojo con la lógica: que los manuales enseñen a operar desde la interfaz
+solo describe la interfaz — **no define ni limita nada sobre el API**. Ausencia de
+mención no es prohibición. Conclusión: **el API sigue completamente sobre la mesa**
+(el caso del proveedor de Guadalajara sugiere que es viable); la vía de ingesta se decide
+con el scope y con lo que se descubra de la plataforma — no se predefine aquí.
+
+El contexto: el cliente opera dentro de **3 sistemas de iMile** — **DS** (ds.imile.com —
+tickets y operación), **PCS** (pcs.imile.com — cortes semanales, conciliación, facturas)
+y la **app iMile Driver** (entregas, PODs, GPS). Y como **piso garantizado** (no como
+definición), iMile mismo enseña a exportar las bases: tickets de queja, tickets de
+arbitraje (columnas documentadas: guía, estación, estatus, penalización, monto) y el
+Excel de "guías a pago" del PCS. Por eso la capa de ingesta se diseña **agnóstica a la
+fuente** (adaptadores): API cuando se confirme, exports mientras tanto o como respaldo —
+el sistema funciona igual con cualquiera.
 
 ## 2. El GPS ya existe — dentro de iMile
 
