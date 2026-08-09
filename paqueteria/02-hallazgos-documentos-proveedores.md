@@ -1,5 +1,85 @@
 # Hallazgos — carpeta CAPACITACIONES/DOCUMENTOS PROVEEDORES (iMile) — 8-ago-2026
 
+> 16 archivos analizados uno por uno (PDFs, DOCX, XLSX, PPTX e imágenes; videos excluidos —
+> aunque dos ya quedaron cubiertos: el PPTX de Aging y los JPGs de OFD son el contenido de esos videos).
+> Primero los 5 hallazgos que cambian el proyecto; abajo el detalle documento por documento.
+
+---
+
+# ⭐ LOS 5 HALLAZGOS IMPORTANTES
+
+## 1. La ingesta ya tiene camino legal e indiscutible — SIN API
+
+El cliente opera dentro de **3 sistemas de iMile**: **DS** (ds.imile.com — tickets y operación),
+**PCS** (pcs.imile.com — cortes semanales, conciliación, facturas) y la **app iMile Driver**
+(entregas, PODs, GPS). Y los manuales de iMile **enseñan a los proveedores a EXPORTAR sus
+bases**: tickets de queja, tickets de arbitraje (columnas documentadas: guía, estación,
+estatus, penalización, monto) y el Excel de "guías a pago" del PCS ("Crear archivo de
+exportación"). Si iMile mismo te capacita para descargar esos archivos, ingerirlos en
+nuestro sistema es incuestionable. **Arrancamos con exports el día 1; el API queda como
+optimización futura.** Y confirmado: ninguno de estos documentos menciona ni prohíbe APIs —
+la supuesta prohibición no vive aquí.
+
+## 2. El GPS ya existe — dentro de iMile
+
+Cada entrega registra **coordenadas** (visto en pantalla: `Ubicación: -99.16315, 19.67384`
++ conductor + timestamp), las fotos de POD llevan **marca de agua con AWB + hora + GPS**,
+hay **geocerca de 500 metros** para cerrar entregas (con justificación obligatoria si se
+cierra más lejos), y la app tiene pestaña de **Mapa**. Pregunta clave para el lunes:
+**¿el cliente quiere un mapa de SUS drivers en tiempo real (requiere app/PWA propia) o le
+basta explotar las coordenadas por entrega que iMile ya captura?** Esa respuesta define el
+módulo más caro del sistema.
+
+## 3. El Reglamento es la spec del motor de dinero
+
+15 tipos de incidencia con montos exactos (POD inválido $30, ENR valor + $1,000, retrasos
+$200/pza, dominical 3% del mes, exclusividad $100k mínimo). El módulo de incidencias puede
+calcular **cuántos pesos pierde el cliente por causa, por estación, por semana** —
+cruzándolo con el corte semanal del PCS. **Esa pantalla es la que lo enamora: nadie le ha
+enseñado su sangrado en dinero.**
+
+## 4. Los SLAs se CONTRADICEN entre documentos
+
+El Reglamento dice queja 3 días; el manual CSP (jul-2026) dice **24 horas** (y ENR sin
+respuesta en 1 día = directo a cobro sin apelación); el manual general dice 72 horas; los
+urgentes son mismo-día con aviso a la 1pm y límite 4pm; el aging TikTok es antes de las
+2pm. Es exactamente la desalineación que nuestro diagnóstico ya señalaba. Para el sistema
+significa: **los SLAs se parametrizan (nunca se quema uno)** y el **semáforo de
+vencimientos** es de las features más valiosas — hoy el cliente navega esa confusión de
+memoria.
+
+## 5. Hay quick wins regalados
+
+Las **devoluciones se manejan en hoja impresa** de 50 renglones con firmas a mano
+(digitalización inmediata). El flujo urgente vive en JPGs de WhatsApp. El nivel actual de
+herramientas es papel + Excel + capturas — **cualquier cosa que construyamos se va a
+sentir como magia.**
+
+### Reglas operativas duras (el motor de alertas del sistema)
+
+| Regla | Límite |
+|---|---|
+| Despacho en estación (recibido antes de 12pm) | Salir a ruta en **2 horas** |
+| Urgente TikTok | Mismo día: aviso **1:00 pm**, límite **4:00 pm** |
+| Aging TikTok | Resolver antes de las **2:00 pm** |
+| Intentos de entrega | **3 intentos** con evidencia + escaneo Back to DS → RHP |
+| Cierre de estado en DS | ≤ **10 días** o penalización SIN apelación |
+| Entrega dominical | ≥ **60%** mensual por estación |
+| Sin movimiento | Reporte diario automático a los **21 días** |
+| Respuesta a tickets | Parametrizable: 24h (CSP) / 72h (DS) / 3-4 días (Reglamento) |
+
+### Preguntas quirúrgicas para la junta del lunes
+
+1. Volúmenes diarios de guías/tickets por cliente (TikTok / Shein / Temu / otros).
+2. ¿Cuántas estaciones maneja y en qué estados?
+3. ¿Sus drivers usan la app iMile Driver, o quiere flota propia rastreada por nosotros?
+4. ¿Qué frecuencia de export es realista para su equipo (diaria / por turno / semanal)?
+5. ¿Quién operará el sistema (roles): CS, almacén, supervisores, dueño?
+
+---
+
+# Detalle documento por documento
+
 ## 1. 01 REGLAMENTO PROVEEDORES.docx.pdf (leído COMPLETO, 11 págs)
 - Doc oficial: iMile Mexico PL【2025】No.0003, "Plan de Evaluación de Calidad Operativa v1.3", emitido por Tian Yi, 14-ene-2026, TRILINGÜE ES/EN/中文, confidencial. Vigencia 1 año o hasta nueva versión; interpretación = depto. operativo iMile México.
 - Alcance: iMile México + subsidiarias + **CSP (Channel Service Partner)** + **DS (Directly Operated Station)**. → El cliente es proveedor CSP/DS.
@@ -87,12 +167,4 @@
 
 ---
 
-# SÍNTESIS ESTRATÉGICA PARA EL SISTEMA ENKORAS
-
-1. **El universo iMile del cliente tiene 3 sistemas**: DS (ds.imile.com — operativo: tickets, problem management), PCS (pcs.imile.com — financiero: cortes semanales, conciliación, facturas) y la app iMile Driver (entregas, PODs, GPS). El cliente OPERA DENTRO de estos sistemas; nuestro sistema es la capa de visibilidad/gestión ENCIMA.
-2. **La ingesta puede arrancar 100% con exports nativos que iMile MISMO enseña a usar**: base de Complaint Tickets, base de Arbitration (paquetes a pagar), y Excel de guías a pago del PCS. Columnas ya conocidas. → El debate del API pierde urgencia: hay camino legal e indiscutible desde el día 1 (el usuario descarga, el sistema ingiere). API = optimización futura.
-3. **El GPS ya existe dentro de iMile** (coordenada por entrega, marca de agua en fotos, geocerca de 500m, tab Mapa) — pero es dato DE iMile. Pregunta clave del lunes: ¿el mapa de repartidores que quiere el cliente es sobre SUS drivers con app propia, o le basta explotar las coordenadas por entrega que iMile registra?
-4. **El Reglamento es la spec del motor de penalizaciones**: 15 ítems con montos exactos → el módulo de incidencias puede calcular PESOS PERDIDOS por causa/estación/cliente (el argumento de venta más fuerte: "esto te está costando X al mes").
-5. **Los SLAs son INCONSISTENTES entre documentos** (Reglamento: 3d/4d; CSP jul-2026: 24h, vida 5d; DS jul: 72h, vida 14d; urgentes: 1pm/4pm mismo día; aging: 2pm) → el sistema DEBE parametrizar SLAs por tipo de ticket/cliente/versión; y esa confusión es en sí un dolor que el sistema resuelve (semáforos de vencimiento).
-6. **Quick win de papel**: el formato de devoluciones (hoja impresa de 50 filas con firmas) es digitalizable de inmediato.
-7. Reglas operativas duras para el motor de alertas: despacho ≤2h (antes de 12pm), urgente TikTok mismo día (1pm aviso / 4pm límite), aging antes de 2pm, 3 intentos + Back to DS + RHP, dominical ≥60%, cierre de estado en DS ≤10 días (sin apelación), sin movimiento 21 días (reporte diario automático de iMile).
+*Los 5 hallazgos estratégicos y las reglas del motor de alertas están al inicio de este documento.*
