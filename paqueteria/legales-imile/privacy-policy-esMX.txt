@@ -1,0 +1,192 @@
+### PRIVACY POLICY — versionId 314 (es_MX) — effectiveDate ?
+
+Política de Privacidad 
+ Última Actualización: julio de 2026 Fecha de entrada en vigor: julio de 2026 
+ 
+
+ Introducción y alcance 
+ iMile Logistics & Transportation, S.L. (en adelante, “iMile” , “nosotros” , o “nos” ) respeta su preocupación por la privacidad. Esta Política de Privacidad (la “Política” ) describe los tipos de información personal que procesamos durante nuestros servicios logísticos y nuestra colaboración comercial con usted, su uso de nuestros servicios y su visita a nuestro sitio web https://www.imile.com/ES-es . 
+ Proteger su privacidad y garantizar la seguridad de sus datos personales es de suma importancia para nosotros. Nos comprometemos a procesar sus datos cumpliendo íntegramente con el Reglamento General de Protección de Datos (RGPD) y las leyes nacionales de protección de datos aplicables. 
+ 
+ Esta política describe: 
+ 1. Qué información obtenemos 2. Cómo usamos su información y la base legal 3. Con quién compartimos su información 4. Sus derechos y opciones 5. Transferencias internacionales de datos 6. Cuánto tiempo conservamos su información 7. La seguridad de su información 8. Privacidad de los menores 9. Uso de cookies 10. Cambios a esta Política de privacidad 11. Cómo contactarnos 
+
+ 
+ Declaraciones importantes: 
+ Esta Política de Privacidad no constituye un contrato y no crea derechos ni obligaciones contractuales. Esta Política no se aplica a la información personal de los empleados de iMile ni de los empleados de sus socios, la cual se rige por un aviso interno independiente. Nuestras prácticas de privacidad pueden variar según el país en el que operamos para ajustarse a la legislación local. 
+
+ 1. ¿Qué información obtenemos? 
+ Obtenemos los datos personales necesarios para prestar nuestros servicios logísticos y garantizar la eficiencia operativa. Dependiendo de su interacción con nosotros, obtenemos información de las siguientes fuentes: 
+ 1.1 Información recibida de clientes externos (transportistas/comerciantes) 
+ Para iniciar y ejecutar los servicios de entrega solicitados por nuestros clientes comerciales (como plataformas de comercio electrónico o comerciantes), recibimos la siguiente información: 
+ 
+ Datos de contacto de personas físicas o jurídicas, como nombre, nombre de la empresa, dirección postal, correo electrónico y número de teléfono o fax. 
+ Datos de contacto relacionados con el envío para el remitente, el destinatario y/o el receptor designado. 
+ Información para verificar la identidad de una persona, incluyendo nombres, correos electrónicos y números de teléfono de otras personas a quienes se nos solicita enviar información o paquetes. 
+ Información requerida para el despacho de aduanas o el cumplimiento de la normativa, como el valor de la mercancía, la descripción de los productos y los identificadores fiscales (p. ej., Código Fiscal). 
+ Otros datos que nos faciliten el acceso a las direcciones de entrega. 
+ 
+ En lo que respecta al tratamiento de estos datos, iMile se adhiere estrictamente al Acuerdo de Tratamiento de Datos (ATD) y a las instrucciones escritas proporcionadas por nuestros clientes para garantizar el cumplimiento del contrato de entrega. 
+
+ 1.2 Información Recopilada Por Medios Automatizados 
+ Cuando usted visita nuestro sitio web, utiliza nuestras aplicaciones o interactúa con nuestras herramientas digitales, recopilamos cierta información a través de medios automatizados (por ejemplo, cookies y balizas web): 
+ 
+ Dirección IP, identificador único del dispositivo, características del navegador y sistema operativo. 
+ Preferencias de idioma, URL de referencia, acciones realizadas en nuestras plataformas y marcas de tiempo de la actividad. 
+ Números de seguimiento de paquetes y registros de estado generados por iMile o nuestros socios comerciales para documentar el proceso logístico. 
+ 
+ 1.3 Información que usted nos proporciona 
+ Como proveedor logístico independiente, recopilamos y generamos datos durante el ciclo de vida del servicio para verificar la entrega y gestionar la calidad del servicio: 
+ 
+ Recopilamos firmas, códigos PIN o fotografías del lugar de entrega como prueba de la correcta recepción. 
+ Al recoger o entregar un envío, podemos obtener datos GPS, geocódigos, coordenadas de latitud/longitud e imágenes de los lugares de entrega para optimizar la ruta y garantizar la precisión de la entrega. 
+ Si corresponde, recopilamos los datos de la tarjeta de pago o los números de servicio de pago en línea, las direcciones de facturación y la información de la cuenta bancaria necesaria para el procesamiento financiero. 
+ Recopilamos el contenido y los metadatos de los mensajes o respuestas (a través de mensajería instantánea, correo electrónico o chat) para brindar asistencia y resolver consultas. 
+ Cuando solicita un presupuesto o envía una consulta de servicio a través de nuestro formulario web "Consultar ahora" o similar, recopilamos información de contacto profesional, incluyendo su nombre, nombre de la empresa, dirección de correo electrónico, número de teléfono y ubicación de la empresa. También recopilamos información específica de la empresa necesaria para proporcionar un presupuesto preciso, como el número de pedidos diarios y los tipos de productos involucrados. 
+ 
+ Como proveedor de logística B2B, iMile prioriza la minimización de datos y el procesamiento orientado al servicio. Tenga en cuenta nuestro compromiso con lo siguiente: 
+ 
+ No recopilamos información sobre la actividad en línea de nuestros visitantes en sitios web de terceros. 
+ Las interacciones con herramientas de redes sociales (por ejemplo, el botón «Me gusta») en nuestras plataformas se rigen por las políticas de privacidad de los proveedores correspondientes. 
+ No recopilamos intencionadamente datos personales sensibles (por ejemplo, datos faciales, raciales, religiosos o de salud) a menos que sea estrictamente necesario para el despacho de aduanas o el cumplimiento de la ley. 
+ 
+ 
+
+ 2． ¿Cómo utilizamos su información y base legal? 
+ Utilizamos la información que obtenemos para brindar servicios logísticos confiables y gestionar nuestras operaciones comerciales de forma independiente. Específicamente, utilizamos su información para los siguientes fines: 
+ 2.1 Ejecución de servicios de entrega y logística 
+ Utilizamos los datos de envío para: 
+ 
+ Gestionar todo el ciclo de vida del paquete, desde la recogida inicial hasta la entrega final. 
+ Determinar las secuencias de entrega, la planificación de rutas y las estrategias de navegación más eficientes mediante nuestras tecnologías propias para garantizar un servicio puntual. 
+ Documentar la entrega exitosa de los paquetes mediante firmas, fotografías o códigos PIN seguros para resolver disputas y garantizar la integridad del servicio. 
+ Proporcionar actualizaciones de estado en tiempo real a usted y a nuestros socios comerciales a lo largo de toda la cadena logística. 
+ Recopilar y procesar servicios de valor añadido como el pago contra reembolso o el punto de venta, etc., y gestionar la facturación y la conciliación financiera correspondientes. 
+ 
+ La base jurídica para el tratamiento de las categorías de datos mencionadas es el artículo 6, apartado 1, letra f) del RGPD. iMile tiene un interés legítimo en tratar estos datos para cumplir con el mandato logístico iniciado por nuestros clientes comerciales, garantizar la seguridad de la cadena de suministro y facilitar un proceso de entrega fluido y preciso al destinatario. Además, cuando el tratamiento implique información necesaria para el despacho de aduanas, la declaración de impuestos o el cumplimiento de la normativa postal (como el valor de las mercancías o los identificadores fiscales), la base jurídica es el artículo 6, apartado 1, letra c) del RGPD, ya que dicho tratamiento es necesario para el cumplimiento de una obligación legal a la que está sujeta iMile. 
+ Para el comprobante de entrega y los datos de ubicación física: Art. 6 (1) (f) RGPD 
+ La base legal para el tratamiento de firmas, códigos PIN, fotos de entrega y datos GPS/de ubicación en el comprobante de entrega es el Art. 6 (1) (f) RGPD. iMile tiene un interés legítimo en garantizar la correcta ejecución y verificación de nuestros servicios. Este tratamiento es estrictamente necesario para: 
+ 
+ Documentar la entrega para resolver posibles disputas y proporcionar el comprobante de entrega al remitente. 
+ Utilizar geocódigos y coordenadas GPS para optimizar las rutas de entrega, garantizar la precisión del destino y mejorar la eficiencia de la flota. 
+ Proteger la integridad de los envíos y prevenir el fraude relacionado con la entrega. 
+ 
+ Para servicios de pago contra reembolso (COD): Art. 6 (1) (c) y (f) del RGPD 
+ Al procesar información relacionada con pagos en servicios de valor añadido como el pago contra reembolso (COD), iMile se basa en dos fundamentos: 
+ 
+ Debemos procesar y conservar las direcciones de facturación, los importes de las transacciones y los registros financieros para cumplir con la normativa fiscal, contable y de prevención del blanqueo de capitales (PBC) aplicable en España como obligación legal (Art. 6 (1) (c) del RGPD). 
+ iMile tiene un interés legítimo en facilitar la transacción financiera en nombre de nuestros clientes comerciales para garantizar la correcta ejecución del mandato de entrega como interés legítimo (Art. 6 (1) (f) del RGPD). 
+ 
+ 2.2 Gestión Operativa, Verificación y Seguridad 
+ Utilizamos datos operativos y técnicos para evaluar y optimizar nuestro negocio, lo que incluye: 
+ 
+ Analizar la eficacia de nuestra red de distribución, gestionar los recursos de la flota y determinar el rendimiento técnico. 
+ Protegernos contra el fraude, las actividades prohibidas y las responsabilidades, identificándolas y previniéndolas. Esto incluye el uso de circuito cerrado de televisión (CCTV) en nuestras instalaciones para proteger al personal, los activos y los envíos. 
+ Garantizar la seguridad de nuestros sistemas de información y mantener la calidad de nuestras plataformas digitales. Realizar las actividades de contabilidad, auditoría, facturación y cobro necesarias para la gestión de nuestro negocio. 
+ 
+ 
+ Para identificadores técnicos y registros de actividad: Art. 6 (1) (f) RGPD 
+ La base legal para el tratamiento de identificadores técnicos (como direcciones IP e identificadores de dispositivo) y registros de actividad es el Art. 6 (1) (f) RGPD. iMile tiene un interés legítimo en garantizar la funcionalidad técnica, la seguridad y la estabilidad de nuestros sitios web y aplicaciones. Este tratamiento es esencial para: 
+ 
+ Diagnosticar problemas técnicos e identificar errores que afecten la funcionalidad prevista. Proteger nuestros sistemas contra el uso indebido, el acceso no autorizado y los ciberataques. Personalizar la configuración de idioma y las preferencias del usuario para garantizar una conexión fluida. 
+ 
+ Para el seguimiento de envíos y el registro de estado: Art. 6 (1) (f) RGPD 
+ El tratamiento de los números de seguimiento de paquetes y los registros de estado generados por iMile se basa en el Art. 6 (1) (f) RGPD. Tenemos un interés legítimo en mantener la integridad operativa del proceso logístico. Estos datos son necesarios para: 
+ 
+ Documentar todo el ciclo logístico y proporcionar transparencia tanto al remitente como al destinatario sobre el estado del paquete. Optimizar nuestra red de distribución y garantizar la eficiencia de nuestras operaciones logísticas. Establecer un registro fiable de la prestación del servicio para resolver posibles consultas o reclamaciones. 
+ 
+ 2.3 Atención al Cliente y Comunicación 
+ Utilizamos su información para facilitar una interacción fluida, que incluye: 
+ 
+ Responder a sus solicitudes, preguntas y comentarios a través de nuestros canales de atención al cliente (por ejemplo, correo electrónico, mensajería instantánea). Enviar actualizaciones de seguimiento y facilitar opciones de entrega convenientes (como la selección de franjas horarias específicas) para mejorar la experiencia del destinatario. Tramitar reclamaciones relacionadas con nuestros servicios, como consultas sobre envíos perdidos o dañados. 
+ 
+ Para interacciones con el servicio de atención al cliente: Art. 6 (1) (f) RGPD 
+ La base legal para el tratamiento de las comunicaciones (correos electrónicos, chats y metadatos) es el Art. 6 (1) (f) RGPD. Tenemos un interés legítimo en brindar asistencia de alta calidad y resolver consultas de manera eficaz. Este tratamiento nos permite: 
+ 
+ Responder a las solicitudes, realizar un seguimiento del historial de una consulta para garantizar la coherencia y gestionar las reclamaciones relacionadas con envíos dañados o extraviados. Mantener registros de la correspondencia para establecer, ejercer o defender posibles reclamaciones legales. 
+ 
+ 2.4 Cumplimiento Legal y Normativo 
+ Procesamos información para cumplir con nuestras obligaciones legales y proteger nuestros intereses, según lo exigen los artículos 6(1)(c) y 6(1)(f) del RGPD: 
+ 
+ Cumplir con los requisitos de las leyes aduaneras, fiscales y postales aplicables. Establecer, ejercer o defender reclamaciones legales y supervisar el cumplimiento normativo independientemente de las instrucciones originales proporcionadas por nuestros clientes. 
+ 
+ 2.5 Uso automatizado de datos 
+ La información recopilada mediante cookies y medios automatizados se utiliza, según lo exige el artículo 6, apartado 1, letra f) del RGPD, para: 
+ 
+ Depurar, identificar y corregir errores en nuestros sitios web y aplicaciones. Personalizar el contenido y recordar las preferencias para que nuestras herramientas digitales sean más eficaces. Utilizar direcciones IP y datos de ubicación para diagnosticar problemas técnicos y recopilar información demográfica general sobre nuestra base de usuarios (sin elaborar perfiles individuales). 
+ 
+ 2.6 Consultas comerciales y presupuestos de servicios 
+ Utilizamos la información proporcionada en sus consultas y solicitudes de presupuesto para responder a sus preguntas, ofrecerle propuestas de servicio personalizadas y gestionar las fases iniciales de una posible relación comercial. También procesamos estos datos para identificar y prevenir el fraude u otras actividades prohibidas o ilegales. 
+ La principal base jurídica para este procesamiento es su consentimiento (art. 6(1)(a) del RGPD), que usted otorga al enviar voluntariamente su consulta. Además, el procesamiento es necesario para tomar medidas a su solicitud antes de la celebración de un contrato (art. 6(1)(b) del RGPD). Asimismo, nos basamos en nuestro interés legítimo (art. 6(1)(f) del RGPD) para responder a las consultas comerciales y en nuestras obligaciones legales (art. 6(1)(c) del RGPD) para prevenir el fraude y garantizar la seguridad de nuestros servicios. 
+ Nota: iMile no utiliza información personal para realizar modelos de comportamiento, análisis de solvencia ni toma de decisiones automatizada que produzcan efectos jurídicos sobre las personas. No recopilamos patrones de comportamiento de sesión, como patrones de clics, pulsaciones de teclas o comportamiento de navegación detallado, con fines de marketing. No registramos ni analizamos las interacciones con nuestras funciones de chat para modelar el comportamiento ni para crear perfiles de usuario. 
+ 
+ 3. Con quién compartimos su información 
+ No vendemos ni compartimos su información personal, salvo en los casos descritos en esta Política de Privacidad. Compartimos sus datos únicamente con determinadas categorías de destinatarios, según sea necesario para garantizar la correcta ejecución de nuestros servicios logísticos y operaciones comerciales. 
+ 3.1 Compartir información dentro del Grupo iMile 
+ Como proveedor global de servicios logísticos, podemos compartir información personal con nuestras filiales y empresas subsidiarias ( el Grupo iMile ). Este intercambio interno es necesario para: 
+ 
+ Garantizar estándares de servicio uniformes en diferentes jurisdicciones. Gestionar la lógica de planificación de rutas, las configuraciones del sistema y los protocolos de seguridad propios, mantenidos por nuestros equipos técnicos globales. Facilitar la gestión y auditoría centralizadas del negocio. 
+ 
+ 3.2 Compartir información con proveedores de servicios y socios comerciales 
+ Compartimos información con proveedores de servicios externos que ejecutan instrucciones específicas en nuestro nombre. Estas entidades no están autorizadas a usar ni divulgar la información, salvo que sea necesario para prestar los servicios encomendados o para cumplir con los requisitos legales: 
+ 
+ Esto incluye subcontratistas de entrega de última milla, proveedores externos y conductores profesionales que requieren los detalles de la guía de remisión y las direcciones de entrega para ejecutar segmentos específicos de la ruta logística. Proveedores de alojamiento en la nube (p. ej., AWS), almacenamiento de datos y herramientas de mapas/navegación (p. ej., la API de Google Maps) que utilizamos para optimizar nuestras rutas de entrega. Proveedores de software externos que facilitan nuestros chats web, herramientas de comunicación y operaciones de centro de llamadas. Podemos compartir información con franquiciados, revendedores y socios conjuntos para mejorar los servicios basados ​​en la ubicación y desarrollar datos de enrutamiento precisos y actualizados. 
+ 
+ 3.3 Intercambio de información dentro de la cadena logística 
+ Para prestar nuestros servicios de recogida y entrega, compartimos información de envío con las partes involucradas en el ciclo logístico: 
+ 
+ Proporcionamos actualizaciones del estado de la entrega, información de seguimiento y comprobantes de entrega (POD) a la entidad que inició el envío (el comerciante o remitente) para confirmar la entrega exitosa y facilitar la gestión de su servicio al cliente. Compartimos los detalles necesarios del envío y las actualizaciones de seguimiento para coordinar el proceso de entrega. 
+ 
+ 3.4 Divulgación para fines legales, de seguridad y cumplimiento 
+ Podemos divulgar información sobre usted cuando consideremos que es necesario o apropiado en las siguientes circunstancias: 
+ 
+ Para cumplir con las leyes, regulaciones o procesos legales aplicables (como órdenes judiciales o citaciones) y responder a solicitudes de agencias gubernamentales o fuerzas del orden. Para facilitar el comercio internacional, el despacho de aduanas y la presentación de informes regulatorios. Para prevenir daños físicos o pérdidas financieras, investigar actividades ilegales presuntas o reales (incluido el fraude) y establecer, ejercer o defender nuestros derechos legales. 
+ 
+ 3.5 Optimización de la cadena de suministro y gestión de envíos 
+ Para los clientes que externalizan sus cadenas de suministro con nosotros, iMile gestiona la optimización logística, el comercio internacional y los servicios de intermediación. Al prestar estos servicios de gestión de envíos y logística, podemos obtener, utilizar y divulgar información personal sobre los clientes de nuestros clientes. En estos casos, procesamos y compartimos la información estrictamente de acuerdo con el contrato de servicios vigente con nuestro cliente. 
+ 
+ 4. Sus derechos y opciones 
+ Conforme a la legislación aplicable, usted tiene derechos específicos respecto a su información personal. Le ofrecemos diversos canales para que pueda ejercer estos derechos, tanto si recopilamos los datos directamente de usted como si los recibimos de nuestros socios comerciales. 
+ 4. 1 Resumen de sus derechos 
+ Puede solicitar las siguientes acciones con respecto a sus datos personales: 
+ 
+ Acceso: Puede solicitar una copia de la información personal que mantenemos sobre usted y recibir información sobre cómo la procesamos. 
+ Rectificación: Tiene derecho a corregir información inexacta o incompleta. 
+ Supresión (Derecho al olvido): Puede solicitar la eliminación de sus datos personales, siempre que su conservación no sea obligatoria por ley (por ejemplo, por motivos fiscales o aduaneros) o para la defensa de reclamaciones legales. 
+ Oposición al tratamiento: Tiene derecho a oponerse al tratamiento basado en nuestros intereses legítimos (como fotografías de comprobante de entrega o la optimización logística). Dejaremos de procesar sus datos a menos que tengamos motivos legítimos imperiosos que prevalezcan sobre sus intereses. 
+ Restricción: Puede solicitarnos que suspendamos temporalmente el tratamiento de sus datos mientras impugna su exactitud o nuestros motivos legítimos para el tratamiento. 
+ Portabilidad de datos: Cuando el tratamiento de datos se base en su consentimiento o en un contrato, usted podrá solicitar recibir su información en un formato estructurado y legible por máquina para transferirla a otro lugar. Right to Lodge a ComplaintDerecho a presentar una reclamación: Si no está satisfecho con nuestra respuesta, tiene derecho a presentar una reclamación ante una autoridad de control. 
+ 
+ 
+ 4.2 Cómo ejercer sus derechos 
+ Para garantizar que su solicitud se gestione de forma eficiente, tenga en cuenta las siguientes opciones: 
+ Para la información que recopilamos directamente, como los registros de visitas al sitio web, las comunicaciones con el servicio de atención al cliente o el comprobante de entrega (POD) generado por nuestros sistemas, puede contactarnos directamente en dpo[AT]imile.me . En cuanto a los metadatos de envío proporcionados por plataformas de comercio electrónico o comerciantes (por ejemplo, su nombre y dirección en la etiqueta de envío), iMile procesa estos datos principalmente para cumplir con el mandato de entrega del comerciante. Le sugerimos que se ponga en contacto directamente con el comerciante (el responsable del tratamiento de datos original) para ejercer sus derechos, ya que este mantiene la relación principal con usted. Si se comunica con nosotros en relación con estos datos, colaboraremos con nuestros clientes comerciales y le ayudaremos a gestionar su solicitud de acuerdo con nuestros acuerdos de servicio. En cuanto a los metadatos de envío proporcionados por plataformas de comercio electrónico o comerciantes (por ejemplo, su nombre y dirección en la etiqueta de envío), iMile procesa estos datos principalmente para cumplir con el mandato de entrega del comerciante. Le sugerimos que se ponga en contacto directamente con el comerciante (el responsable del tratamiento de datos original) para ejercer sus derechos, ya que este mantiene la relación principal con usted. Si se comunica con nosotros en relación con estos datos, colaboraremos con nuestros clientes comerciales y le ayudaremos a gestionar su solicitud de acuerdo con nuestros acuerdos de servicio. 
+ 
+ 5. Transferencias internacionales de datos 
+ La información personal que recopilamos de usuarios europeos se almacena principalmente en nuestros centros de datos seguros ubicados en Fráncfort, Alemania, dentro de la Unión Europea. Como organización logística global, iMile puede transferir su información personal a países distintos de aquel en el que se recopiló originalmente. Estos países pueden tener leyes de protección de datos diferentes a las de su jurisdicción. 
+ Cuando transferimos su información personal a otros países, la protegemos según lo descrito en esta Política de Privacidad y de conformidad con las leyes aplicables. Para garantizar que sus datos permanezcan protegidos cuando se acceda a ellos desde fuera del Espacio Económico Europeo (EEE), implementamos sólidas medidas de seguridad, que incluyen: 
+ 
+ Utilizamos las cláusulas contractuales estándar aprobadas por la Comisión Europea para la transferencia de datos a terceros países. Hemos establecido estrictos acuerdos de protección de datos dentro del Grupo iMile para garantizar estándares de privacidad uniformes en todas las jurisdicciones. Implementamos medidas técnicas y organizativas, como el cifrado y la restricción de permisos de acceso, para asegurar que solo el personal autorizado pueda procesar sus datos para fines específicos y legítimos. 
+ 
+ 6. ¿Cuánto tiempo conservamos su información? 
+ Su información personal no se almacenará durante más tiempo del necesario para los fines para los que fue recopilada o según lo exijan las políticas de retención aplicables y/o la legislación vigente. Una vez que los datos personales ya no sean necesarios para los fines descritos en esta Política de Privacidad, se eliminarán de forma segura o se anonimizarán de acuerdo con los requisitos de retención aplicables. 
+ 
+ 7. Seguridad de su información 
+ Priorizamos la seguridad de su información personal e implementamos sólidas medidas de protección administrativas, técnicas y físicas. Estas incluyen: 
+ 
+ Uso de cifrado avanzado (TLS/SSL) para los datos en tránsito y en reposo, junto con autenticación multifactor (MFA) y control de acceso basado en roles (RBAC). Tomamos medidas para limitar el acceso a nuestras instalaciones y almacenes únicamente a personas autorizadas. Sin embargo, tenga en cuenta que la información ubicada en el exterior de un paquete o carta puede ser visible para terceros durante el transporte. Realizamos auditorías y monitoreo de seguridad periódicos para prevenir el acceso no autorizado, la pérdida o el uso indebido. 
+ 
+ Nota: Si bien tomamos medidas para limitar el acceso a nuestras instalaciones y vehículos únicamente a personas autorizadas, la información ubicada en el exterior de un paquete puede ser visible para terceros. 
+ 
+ 8. Privacidad de los menores 
+ Los servicios y el sitio web de iMile no están dirigidos a menores. No recopilamos ni obtenemos información personal de personas menores de la mayoría de edad legal en su jurisdicción. Si tiene conocimiento de que un menor nos ha proporcionado datos personales, póngase en contacto con nosotros en dpo[AT]imile.me , como se indica en la sección «Cómo contactarnos» de este Aviso de Privacidad, y procederemos a eliminarlos. 
+ 
+ 9. Uso de cookies 
+ Para mejorar su experiencia de usuario y analizar el tráfico del sitio, nuestro sitio web utiliza cookies y tecnologías de seguimiento similares (como balizas web). Utilizamos esta información para diagnosticar problemas técnicos, identificar a los visitantes y personalizar la funcionalidad de nuestro sitio web. Puede gestionar sus preferencias de cookies a través de la configuración de su navegador, aunque deshabilitar ciertas cookies puede afectar la disponibilidad de algunas funciones del sitio web. 
+ 
+ 10. Cambios en esta Política de Privacidad 
+ Podemos actualizar esta Política de Privacidad periódicamente para reflejar cambios en nuestros servicios o requisitos legales. Cuando realicemos actualizaciones importantes, le notificaremos actualizando la fecha de «Última actualización» que aparece al inicio de esta Política. Para cambios sustanciales, podríamos publicar un aviso más destacado en nuestro sitio web. Le recomendamos revisar esta Política cada vez que visite nuestro sitio web para mantenerse informado sobre nuestras prácticas de privacidad. 
+ 
+ 11. Cómo contactarnos 
+ Si tiene alguna pregunta o comentario sobre esta Política de Privacidad, contáctenos por correo electrónico a dpo[AT]imile.me . 
+ También puede escribirnos a: iMile Logistics & Transportation, S.L. Calle Goya 21, 1D, 28001 Madri d .
