@@ -23,6 +23,27 @@
    sistema puede hacer (ver sección de módulos abajo).
 5. Hay **8 subdominios** de iMile en juego, no solo ds.imile.com.
 
+## Qué significa "DS" (y qué NO)
+
+- **DS = Directly Operated Station** (estación de operación directa; 直营网点). Está literal
+  en el Reglamento v1.3: *"CSP (Channel Service Partner) y DS (Directly Operated Station)"*.
+  En jerga de paquetería, la **estación de entrega local** (la bodega de última milla). Se
+  contrapone a CSP (estación operada por un socio de canal). La cuenta capturada opera la
+  estación **TIJ-LAS HUERTAS.DS** (`ocType/stationType: DS`).
+- **"Delivery Services" ≠ el DS del portal.** "Delivery Services" es el nombre de la EMPRESA
+  (iMile Delivery Services LLC / MÉXICO) — también su marca de reclutamiento
+  (imille-delivery-services.pandape.computrabajo.com). No es lo que significa el acrónimo DS.
+
+## El login (ds-login.imile.com) — export de 14 req
+
+- SPA aparte, proyecto **`ds-web-login`**. Portal INTERNO de empleado/proveedor (no público).
+- Métodos de entrada: cuenta+contraseña, **QR**, **SSO Feishu/Lark**, **WeCom (企业微信)**,
+  2FA por correo. Textos tipo "contacta a RH", "vincula tu WeCom".
+- Confirma que **iMile es empresa de gestión china** (Lark/WeCom = ByteDance/Tencent) — por
+  eso todo viene trilingüe con chino. Refuerza que el DS es portal operativo de personal, no
+  API pública → el API oficial sigue siendo la vía limpia de integración.
+- Sin hallazgos nuevos sobre restricciones de acceso ni API (es puro flujo de auth).
+
 ## Identidad de la cuenta capturada (la que compartió Fer)
 
 Del endpoint `/ucenter/system/checkToken` (perfil del usuario logueado):
