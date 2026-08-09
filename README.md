@@ -11,13 +11,24 @@
 
 ---
 
-## Las páginas del ecosistema
+## La empresa
 
-| Carpeta | Página | Estado | Nombre |
+**ENKORAS ya es la EMPRESA** (no solo la plataforma B2B): 3 socios en partes iguales —
+Fernanda (CSO), David (COO), Javi (CTO, creador del nombre). La historia completa y viva
+en [`enkoras-empresa/01-historia-y-vision.md`](enkoras-empresa/01-historia-y-vision.md).
+
+## Las carpetas del arsenal
+
+| Carpeta | Qué es | Estado | Nombre |
 |---|---|---|---|
+| [`enkoras-empresa/`](enkoras-empresa/) | La empresa: historia, identidad, socios, líneas de negocio, plan legal, bitácora | **Documento vivo** — se actualiza conforme pasan las cosas | Definitivo: ENKORAS |
 | [`enkoras-b2b/`](enkoras-b2b/) | Plataforma B2B de proveedores — **enkoras.com** | **EN PRODUCCIÓN** (construida 2–5 ago 2026); siguiente capítulo: lanzamiento comercial BC | Definitivo: ENKORAS |
+| [`paqueteria/`](paqueteria/) | Sistema de paquetería/rastreabilidad — **Proyecto 1 del cliente** (diagnóstico y SOP para iMile México) | **CONTRATADO — entrega ~1 mes** (sep 2026); la puerta a Shein y Sells | Por definir |
 | [`bolsa-invertida/`](bolsa-invertida/) | La bolsa de trabajo invertida — el candidato publica, la empresa busca | Idea definida — proyecto corto plazo (antes de diciembre 2026) | **Temporal** |
 | [`pagina-cv/`](pagina-cv/) | Página de expedientes profesionales + práctica de entrevistas por voz | Idea definida — proyecto corto plazo (antes de diciembre 2026); es la "mano derecha" de la bolsa | **Temporal** |
+
+> Las carpetas de **Shein** y **Sells** (proyectos 2 y 3 de la escalera del cliente) se
+> crean SOLO cuando haya luz verde — sin luz verde no hay carpeta.
 
 ## Cómo se conectan
 
