@@ -107,7 +107,7 @@ nombre ENKORAS, que es suyo).
 - ✅ **Marca ENKORAS creada** — identidad completa (Nexo Central, historia EN|KOR|AS,
   página /nosotros), documento de Identidad/Cultura/Visión unificado.
 - ✅ **Dos productos futuros definidos a nivel visión** — bolsa invertida y página de
-  expedientes (documentos fundacionales en este arsenal).
+  expedientes (documentos fundacionales en este núcleo).
 - ✅ **Primer cliente real** — sistema de paquetería/rastreabilidad contratado
   (entrega ~1 mes), con diagnóstico y SOP ya entregados (carpeta `paqueteria/`).
 - ✅ **Primer ingreso facturado como Enkoras** — servicio de configuración de
@@ -133,7 +133,7 @@ nombre ENKORAS, que es suyo).
    enamorar al cliente: es la puerta de todo lo demás.
 2. **Si le gusta → sistema de distribución Shein** — el cliente compra hoy el 95% de
    los retornos de Shein y quiere llegar a Shein con el sistema como sustento de toda
-   la entrega. *(Carpeta en el arsenal solo con luz verde.)*
+   la entrega. *(Carpeta en el núcleo solo con luz verde.)*
 3. **Si Shein jala → "Sells"** — proyecto a nivel república, tipo marketplace, para
    formalizar lo que hoy ocurre en Facebook Marketplace. *(Carpeta solo con luz verde.)*
 
@@ -196,4 +196,4 @@ abrir otro país.
 | 8 ago 2026 | Documento de Identidad, Cultura y Visión (versión unificada) terminado |
 | 8 ago 2026 | Diagnóstico y SOP de Urgent Delivery v3.0 preparado para el cliente (iMile México QC/Ops); proyecto de paquetería confirmado con entrega a ~1 mes |
 | 8 ago 2026 | Primer ingreso como Enkoras: servicio de configuración Zebra + diagnóstico de equipo (entra esta semana; destinado al registro de marca) |
-| 8 ago 2026 | Arsenal creado (este repo): fundacionales de bolsa, CV, paquetería y empresa |
+| 8 ago 2026 | Núcleo creado (este repo, `enkoras-nucleo` — antes "arsenal"): fundacionales de bolsa, CV, paquetería y empresa |

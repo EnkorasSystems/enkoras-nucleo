@@ -1,13 +1,13 @@
-# ENKORAS — Arsenal
+# ENKORAS — Núcleo
 
-> **El arsenal: todos los cartuchos que vamos a usar.**
-> Repo personal (CrowSo) de ideas, visión y planeación futura del ecosistema Enkoras.
-> Aquí no vive código de producto — vive el *porqué*, el *qué* y el *hacia dónde* de cada
-> página del ecosistema, para que de estos documentos salgan los scopes y roadmaps
-> cuando toque construir.
+> **El núcleo de la empresa — el KOR de la propia marca** (EN·**KOR**·AS: Core · Núcleo,
+> "queda al centro de la palabra"). Aquí no vive código de producto — vive el *porqué*,
+> el *qué* y el *hacia dónde* de todo lo que Enkoras es y construye: la identidad y la
+> historia de la empresa, la visión de cada producto, y los documentos de los proyectos
+> con cliente. De estos documentos salen los scopes y roadmaps cuando toca construir.
 
-**Fundadores:** Javier Calixto (producto y desarrollo) + socio (promoción, networking, canales)
-**Fecha de arranque del arsenal:** agosto 2026
+**Socios:** Fernanda (Co-Founder & CSO) · David (Co-Founder & COO) · Javi (Co-Founder & CTO)
+**Fecha de arranque del núcleo:** agosto 2026
 
 ---
 
@@ -17,7 +17,7 @@
 Fernanda (CSO), David (COO), Javi (CTO, creador del nombre). La historia completa y viva
 en [`enkoras-empresa/01-historia-y-vision.md`](enkoras-empresa/01-historia-y-vision.md).
 
-## Las carpetas del arsenal
+## Las carpetas del núcleo
 
 | Carpeta | Qué es | Estado | Nombre |
 |---|---|---|---|

@@ -1,6 +1,6 @@
 # Diagnóstico y SOP — Proceso de Urgent Delivery
 
-> **Contexto en el arsenal:** este es el **Proyecto 1 de la escalera del cliente** — el
+> **Contexto en el núcleo:** este es el **Proyecto 1 de la escalera del cliente** — el
 > sistema de paquetería/rastreabilidad que Enkoras debe **entregar en ~1 mes** (sep-2026)
 > y que abre la puerta a los proyectos Shein y Sells (esas carpetas se crean solo con luz
 > verde). El documento de abajo es el diagnóstico que ya se entregó/preparó para el
