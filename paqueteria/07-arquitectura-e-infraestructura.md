@@ -21,6 +21,25 @@ componentes que hablan entre sí, y con características que mandan en las decis
 
 ---
 
+## 0.1 El modelo del producto (decisión de Javi, 9-ago)
+
+**Nuestra app es la herramienta PRINCIPAL del chofer — una alternativa a la app de iMile,
+pero mejor y enfocada a lo que Beto necesita.** Hace todo lo que hace la de iMile (escaneo,
+entrega, POD, GPS) **más las funciones extra que viven solo en nuestra app** (zonas,
+verificación por geo, combustible/odómetro, dashboards, catálogos). El chofer idealmente
+usa UNA sola app (la nuestra), y nosotros le sincronizamos a iMile lo que iMile necesita.
+
+**Flujo de datos (la regla):**
+- **Entra de iMile:** lo que *necesitamos* — paquetes, rutas, tracking numbers, geo (el manifiesto).
+- **Vive en Supabase:** lo que *nosotros creamos* — escaneos, entregas, incidencias, GPS,
+  combustible, mantenimiento, catálogos de choferes/unidades, zonas.
+- **Sale a iMile en TIEMPO REAL:** el estatus (asignaciones, entregas, incidencias) — cada
+  evento se manda al momento, **nada de lotes**.
+
+**Dependencia honesta:** el push en tiempo real a iMile depende de que **su API lo acepte
+así**. Internamente todo es tiempo real sí o sí; si iMile de su lado solo aceptara batch,
+solo el envío hacia ellos se agruparía (a confirmar con el formato del manifiesto/API).
+
 ## 1. Principios de la arquitectura
 
 1. **Reusar lo que ya dominamos** (Next.js + Supabase + Vercel + Gemini) donde aplica, y
