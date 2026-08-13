@@ -76,8 +76,13 @@ Es lo genuinamente nuevo, y Expo es la elección correcta por:
   barato y más rápido.
 
 ### Servicios de terceros
-- **OCR / visión (odómetro) → Gemini** — ya lo dominas de Enkoras; ~20 fotos/día = capa
-  gratis. Lee dígitos de odómetro sin problema.
+- **OCR / visión → Gemini** — ya lo dominas de Enkoras. Corre en las fotos de **odómetro**
+  (inicio/fin por unidad, ~fijo) y de **cada carga de gasolina** (variable e impredecible:
+  una unidad puede cargar 0, 1 o varias veces según el recorrido — **sin tope**). Aunque el
+  número vuele a 50-100+/día, el costo es un error de redondeo: cada llamada cuesta
+  fracciones de centavo → aun a ~3,000/mes son ~$2-6, buena parte en capa gratis. Lee
+  dígitos de odómetro y del ticket de gasolina sin problema. **El OCR NO es un costo que
+  escale con el volumen — el que escala es el storage de fotos de entrega.**
 - **Mapas (mostrar flotilla y puntos) → Mapbox o MapLibre** — NO Google para el mapa: a
   este volumen Mapbox (50k cargas/mes gratis) o MapLibre + tiles gratis (OpenStreetMap)
   salen mucho más baratos que Google Maps para *desplegar* el mapa.
@@ -154,7 +159,7 @@ iMile las conserva ~14-30 días; ALTAM decidirá) para que el storage no crezca 
 | Storage de fotos (extra) | $0 | ~$1-3 y creciendo | con compresión + retención; sin retención sube a ~$20-30 a 2 años |
 | **Vercel Pro** | $20 | $20 | panel web |
 | Apple Developer (prorrateado) | $0-8 | $8 | $99/año si hay iOS |
-| **Gemini (OCR)** | $0 | ~$0 | ~20 fotos/día = capa gratis |
+| **Gemini (OCR)** | $0 | ~$0-6 | odómetro + cada carga de gasolina (variable, sin tope); barato aun a 100+/día |
 | **Mapbox** (mapa) | $0 | $0-10 | 50k cargas/mes gratis; supervisores pocos |
 | **Google Routes** (orden paradas) | $0-5 | ~$2-10 | se calcula por ruta, no por paquete = barato |
 | Expo EAS Build | $0 | $0-99 | capa gratis alcanza al inicio; Production si hay muchos builds |
