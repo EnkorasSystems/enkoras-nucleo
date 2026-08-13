@@ -21,20 +21,30 @@ componentes que hablan entre sí, y con características que mandan en las decis
 
 ---
 
-## 0.1 El modelo del producto (decisión de Javi, 9-ago)
+## 0.1 El modelo del producto (Javi, 9-ago)
 
-**Nuestra app es la herramienta PRINCIPAL del chofer — una alternativa a la app de iMile,
-pero mejor y enfocada a lo que Beto necesita.** Hace todo lo que hace la de iMile (escaneo,
-entrega, POD, GPS) **más las funciones extra que viven solo en nuestra app** (zonas,
-verificación por geo, combustible/odómetro, dashboards, catálogos). El chofer idealmente
-usa UNA sola app (la nuestra), y nosotros le sincronizamos a iMile lo que iMile necesita.
+**Construimos 2 apps** (más el backend/plomería que las une por detrás — eso no es una
+"app" que alguien abra):
+1. **App del teléfono** — para el chofer.
+2. **App web** — para supervisor/gerencia.
+
+Las dos **conectadas entre sí** y **conectadas a las apps que iMile YA tiene**: de iMile
+vienen los paquetes/rutas/geo, y a iMile le devolvemos el estatus.
 
 **Flujo de datos (la regla):**
 - **Entra de iMile:** lo que *necesitamos* — paquetes, rutas, tracking numbers, geo (el manifiesto).
-- **Vive en Supabase:** lo que *nosotros creamos* — escaneos, entregas, incidencias, GPS,
-  combustible, mantenimiento, catálogos de choferes/unidades, zonas.
+- **Vive en nuestra base (Supabase):** lo que *nosotros creamos* — escaneos, entregas,
+  incidencias, GPS, combustible, mantenimiento, catálogos de choferes/unidades, zonas + las
+  funciones extra que solo existen en nuestra app.
 - **Sale a iMile en TIEMPO REAL:** el estatus (asignaciones, entregas, incidencias) — cada
-  evento se manda al momento, **nada de lotes**.
+  evento al momento, **nada de lotes**.
+
+**Relación con la app de iMile (decisión abierta, a propósito):** nuestras apps se
+**conectan** a las apps de iMile, NO las reemplazan de entrada. **Si al usar la API vemos
+que se puede hacer todo lo que hace la app del teléfono de iMile, la reemplazamos** para
+que el chofer maneje todo desde la nuestra; si no, se adapta conforme al uso. La
+arquitectura aguanta las dos (la integración va por adaptador y nuestra data vive en
+Supabase), así que la decisión se toma con la práctica, no ahora.
 
 **Dependencia honesta:** el push en tiempo real a iMile depende de que **su API lo acepte
 así**. Internamente todo es tiempo real sí o sí; si iMile de su lado solo aceptara batch,
