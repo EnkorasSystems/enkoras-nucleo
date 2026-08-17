@@ -1,5 +1,9 @@
 # Guía Maestra: UI/UX Premium con Motion (Framer Motion), React, Tailwind y CSS moderno
 
+> **⚠️ Este es la PARTE A del curso — cubre el MOVIMIENTO.**
+> La **PARTE B** vive en [`CURSO-UI-DESIGN.md`](./CURSO-UI-DESIGN.md) y cubre todo lo estático: sistema de color y cómo se define una paleta · espaciado, radios, bordes, sombras y elevación · tipografía y jerarquía · botones, inputs y formularios · checkbox, select, dropdowns, modales y demás controles · layout, cards, menús y contenedores · recetario de efectos listos para copiar.
+> Regla de reparto: **si se mueve, está aquí; si no se mueve, está en la Parte B.**
+
 > **Qué es este documento:** una guía completa para diseñar y construir interfaces web con calidad **premium** — el nivel de pulido de Linear, Vercel, Stripe o Raycast. Combina: (1) los principios universales de motion design para UI/UX, (2) la referencia técnica completa y actualizada de **Motion** (la librería antes conocida como **Framer Motion**), (3) un catálogo de micro-interacciones con especificaciones exactas (duraciones, curvas, escalas), y (4) la implementación práctica con React, Next.js, Tailwind CSS v4 y CSS nativo moderno.
 >
 > **Para quién es:** para una persona o una IA que va a construir sitios web y necesita que TODO — botones, transiciones, scroll, modales, responsive — se sienta de primer nivel. Está escrito en español con los términos técnicos y el código en inglés.
