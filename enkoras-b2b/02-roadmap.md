@@ -216,7 +216,7 @@ Migraciones nuevas que definen la estructura B2B:
 - Push notifications nativas (solicitudes y mensajes)
 
 ### 4.4 Features de profundidad (según datos del test)
-- Cotizaciones estructuradas (RFQ formal con comparativa)
+- Cotizaciones estructuradas → evolucionó a **Licitaciones en vivo / subasta inversa** (spec completa en `14-licitaciones-en-vivo.md`)
 - Actualización de disponibilidad vía WhatsApp Business API
 - Perfiles multi-usuario por empresa (equipos)
 - Historial de relación comercial
