@@ -225,6 +225,116 @@ Migraciones nuevas que definen la estructura B2B:
 
 ---
 
+## FASE 5 — Plan Maestro: asientos, tokens y monetización v2
+
+> Origen: **Plan Maestro Enkoras** (documento de socios, ago-2026). Decisión ya
+> tomada por los socios y confirmada como construible por el CTO. El orden de
+> los bloques es el acordado; Stripe cierra a propósito — se cablea el cobro
+> cuando ya existe todo lo que se cobra.
+
+### 5.1 Búsqueda experta con IA (sección nueva)
+- Sección propia, separada de `/buscar` — el layout de dos columnas de search
+  no se toca: es identidad.
+- Interacción conversacional: el comprador **describe un requerimiento
+  completo** ("envases PET grado alimenticio, certificado FDA, entrega en
+  Tijuana, 50k/mes"); la IA hace 1-2 preguntas de aclaración si le falta algo.
+- Entrega un **dictamen, no un feed**: shortlist curada de 30-40 empresas que
+  SÍ cumplen, con la evidencia de por qué cumple cada condición, y acciones
+  directas (contactar, guardar, invitar a licitación).
+- Momento de confirmación antes de gastar: "Esto usará 1 token (te quedan N)".
+- Puente desde search: consulta larguísima tipo requerimiento → sugerencia
+  discreta "¿quieres que la IA te lo resuelva? (1 token)".
+
+### 5.2 Multiusuario — asientos y roles
+- La empresa renta N asientos y los asigna por correo (invitaciones).
+- Al aceptar, cada persona elige rol: **Reclutador** (libera tokens de
+  búsqueda) o **Comprador** (solo publica solicitudes/licitaciones).
+- Técnica: tabla de miembros (empresa + persona + rol) + RLS por membresía en
+  lugar de `owner_id` único. Convive con el multiempresa actual (1 correo →
+  hasta 5 empresas).
+
+### 5.3 Sistema de tokens
+- Compra de paquetes, saldo por empresa, consumo por búsqueda experta,
+  historial de movimientos.
+- Precio del token = costo directo ÷ (1 − margen objetivo). **Antes de fijar
+  precio: instrumentar el costo real** (llamadas Gemini + cómputo del
+  matching) — hoy no hay dato de uso real suficiente.
+
+### 5.4 Plan Free con vencimiento
+- El Free actual es indefinido → se convierte en trial de captación.
+- El Plan Maestro propone 3 meses; **contrapropuesta de Javi: 1.5–2 meses
+  máximo** (3 se siente excesivo). Pendiente de acordarse con socios; se
+  evaluará de igual forma.
+
+### 5.5 Candado de pago a Licitaciones en vivo
+- El módulo (ya construido y en producción) pasa a ser **complemento de pago**:
+  solo se accede con suscripción pagada. Se implementa directo — hoy no hay
+  clientes reales registrados (aún sin marketing), así que no hay nadie a
+  quien migrar ni transiciones que cuidar.
+
+### 5.6 Unificación Solicitudes ↔ Licitaciones
+- Un solo flujo "**Publica tu necesidad**" con dos modos:
+  - **Normal / sobres cerrados** (hoy: solicitud) — cada proveedor manda UNA
+    oferta a ciegas: sin pulso, sin ver a los demás, sin mejorarla, sin
+    negociación estructurada. Cotizar y esperar. Incluido en la suscripción.
+  - **EN VIVO** (hoy: licitación) — reloj, pulso anónimo con posición,
+    mejorar oferta, anti-sniping, contraofertas, presupuesto privado. Es el
+    complemento premium (5.5).
+- **Regla de oro (decidida 22-ago-2026):** todo lo que huela a competencia en
+  tiempo real vive SOLO en EN VIVO. La línea de pago no es "rápido vs lento"
+  — es "cotizaciones a ciegas vs subasta donde pelean por tu contrato". El
+  valor premium es la guerra de precios, no el reloj: el reloj solo la
+  concentra.
+- El modo normal se re-monta sobre la infraestructura de licitaciones (94
+  candados, ciclo de vida con cron) — se retira el código paralelo de
+  solicitudes. Migrar solicitudes existentes y no romper el ruteo
+  `request_match`.
+
+### 5.7 Catálogo de planes v2 (el nuevo menú comercial)
+Estructura de trabajo **entendida y aceptada por Javi (22-ago-2026)** — boceto
+visual en el artifact "Planes Enkoras v2". Los planes se nombran por **lo que
+eres** (explorar / vender / comprar-y-vender), no por tamaño:
+
+| Plan | Para quién | Qué incluye |
+|---|---|---|
+| **Explorador** — $0, trial 2 meses | Conocer la plataforma | Home, categorías, búsqueda, contactar, 1 empresa. Al vencer: plan o pausa |
+| **Proveedor** — $—/mes | El que **vende** | Hasta 5 empresas, prioridad en búsquedas, responder solicitudes, **ofertar** en licitaciones EN VIVO |
+| **Empresa completa** — $—/asiento/mes | El que **compra** (o ambos) | Todo lo anterior + hasta 10 empresas, publicar sobres cerrados, **convocar** EN VIVO, asientos con roles, **mesada de tokens/mes** |
+| **Recargas de tokens** — consumible | Búsqueda experta | La mesada del plan se reinicia cada mes; el paquete extra se suma al saldo. Nunca "ilimitado" |
+
+Reglas del catálogo:
+- **Ofertar vive en Proveedor (barato) y convocar solo en Empresa completa**:
+  el que convoca recibe el ahorro y paga fuerte; el que oferta da la liquidez
+  que hace bajar los precios y paga suave.
+- El cliente "solo quiero IA y licitaciones" NO necesita plan especial: es
+  Empresa completa con 1 asiento y 1 empresa.
+
+- Ningún precio se publica hasta tener los números del CTO (costo por
+  búsqueda y desglose del $950).
+- Los cambios de plan se hacen directo, sin planes de transición: no hay
+  clientes reales registrados todavía (el marketing no ha arrancado).
+- La suscripción de profesionistas ($800) es del lado Talento — no es de esta
+  plataforma; se lista solo para que el catálogo global cuadre.
+
+### 5.8 Stripe v2 (el cierre)
+- Webhooks nuevos, precios por asiento, venta de paquetes de tokens, cargo del
+  complemento de licitaciones, trial con vencimiento — la configuración
+  completa, al final, cuando 5.1–5.7 ya existen.
+- CFDI 4.0 desglosado por asiento y por complemento (requisito legal del Plan
+  Maestro).
+
+**Datos que produce el CTO para calibrar precios (previo a 5.3/5.7):**
+tasa de conversión real Free→Premium de las empresas registradas · costo real
+por búsqueda con IA · desglose del precio de trabajo de $950 MXN (cuánto es
+asiento base, cuánto licitaciones).
+
+**Criterio de salida de Fase 5:** una empresa puede comprar asientos,
+invitar a su equipo con roles, gastar tokens en la búsqueda experta, publicar
+necesidades en ambos modos, y el complemento de licitaciones se cobra —
+todo facturado por Stripe con CFDI desglosado.
+
+---
+
 ## Resumen visual
 
 | Fase | Nombre | Qué entrega | Depende de |
@@ -234,6 +344,7 @@ Migraciones nuevas que definen la estructura B2B:
 | 2 | Conexión | Solicitudes con ruteo, mensajería realtime, notificaciones, alertas | Fase 1 |
 | 3 | Monetización y lanzamiento | Planes, destacados, SEO, lanzamiento BC con test 2-3 meses | Fase 2 |
 | 4 | Expansión | Estados MX, USA, apps móviles, features de profundidad | Fase 3 + datos del test |
+| 5 | Plan Maestro | Búsqueda experta IA, asientos+roles, tokens, trial con vencimiento, paywall licitaciones, unificación solicitudes/licitaciones, Stripe v2 | Fase 3 + Plan Maestro |
 
 ---
 
@@ -244,3 +355,4 @@ Migraciones nuevas que definen la estructura B2B:
 - **Fase 2:** el riesgo es construir mensajería compleja de más. Control: chat 1-a-1 simple; nada de grupos, archivos ni features de Slack.
 - **Fase 3:** el riesgo es lanzar sin masa mínima. Control: no se anuncia públicamente hasta tener el seed de proveedores invitados con perfiles completos (el playbook de mensajes directos ya está probado con Tu Local).
 - **Fase 4:** el riesgo es expandir sin datos. Control: cada estado nuevo se abre solo cuando las métricas del anterior lo justifican.
+- **Fase 5:** el riesgo es fijar precio de token sin dato real de costo. Control: instrumentar consumo de IA durante el piloto antes de anunciar precio.
