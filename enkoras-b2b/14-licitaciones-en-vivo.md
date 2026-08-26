@@ -261,3 +261,38 @@ viejo, previo a arrancar la Fase 5 del roadmap:
    búsqueda experta IA (5.1): la shortlist desemboca en "invitar a licitación".
 5. **Métricas de admin — al final.** Solo para admin; espera a que haya uso
    real.
+
+---
+
+## 10. Contrato de notificaciones (26-ago-2026, acordado con Javi)
+
+Toda notificación nueva del módulo se valida contra esta matriz. Regla de
+oro: **la campana es para lo que pasa cuando NO estás viendo** — acciones de
+otros y del reloj, jamás confirmaciones de tus propias acciones (eso es
+feedback de UI). Y los sombreros no se mezclan: la convocante JAMÁS recibe
+notificaciones de proveedor de su propia licitación (candado 037), aunque
+sus contraofertas estén activas.
+
+| Evento | Convocante | Ofertantes | Categoría sin ofertar |
+|---|---|---|---|
+| Se crea la bid | — | — | ✅ invitación (ruteo por categorías, dedupe) |
+| Alguien oferta | ✅ "nueva oferta" | — | — |
+| Contraoferta | ✅ si va dirigida a ella | ✅ si va dirigida a él | — |
+| Por cerrar (≤1h) | — | ✅ una sola vez (dedupe) | — |
+| Cerró por tiempo | ✅ "cerró con N — a adjudicar" | ✅ "espera su decisión" | — |
+| Revivió | — | ✅ "tu oferta sigue en la mesa" | — |
+| Cancelada | — | ✅ "tu oferta queda sin efecto" | — |
+| Desierta | ✅ "reábrela con más tiempo" | — | — |
+| Adjudicada | — | ✅ ganó (con chat) / ✅ no ganó (sin revelar precio) | — |
+
+Decisiones:
+- **Cierre y revivir: SOLO a ofertantes.** El invitado que no entró no tiene
+  nada en juego — avisarle es ruido, y el ruido mata campanas.
+- **Sin confirmaciones de acciones propias** (extender, cancelar): la UI las
+  confirma en el momento. La excepción correcta es el RELOJ: "tu bid cerró"
+  sí llega, porque lo hizo el tiempo, no tú.
+- **Futuro (asientos, Fase 5):** cuando un compañero de equipo actúe (ej. el
+  comprador cancela), los DEMÁS asientos sí se notifican — lo hizo otro.
+- **Opción anotada, no construida:** al revivir, reinvitar a los de la
+  categoría que no ofertaron ("segunda oportunidad") — tiene lógica de
+  negocio; se decidirá cuando haya uso real.
