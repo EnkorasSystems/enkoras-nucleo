@@ -236,3 +236,28 @@ probados: presupuesto invisible para proveedores, ofertas ajenas invisibles entr
 - **Canibalizar Solicitudes**: control: son la misma sección con dos modos — la
   solicitud simple sigue siendo el camino sin fricción, la licitación es para cuando
   hay cantidad, presupuesto y urgencia definidos.
+
+---
+
+## 9. Decisiones del cierre del spec (22-ago-2026, Javi)
+
+Lo pendiente de L4 quedó decidido así — este es el orden de cierre del spec
+viejo, previo a arrancar la Fase 5 del roadmap:
+
+1. **Solo verificadas ofertan — SÍ.** La verificación la otorga Enkoras y es
+   un plus del producto. A futuro será **requisito para comprar el plan
+   Proveedor y el de Empresa completa** (Explorador no la pide). Mientras los
+   planes no existan, el candado interino es directo: ofertar exige empresa
+   verificada (BD + UI).
+2. **Adjuntos de la convocante — SÍ.** Al crear la licitación se pueden subir
+   planos, fichas, fotos — para que el proveedor vea "bien bien" qué se
+   requiere antes de ofertar.
+3. **Plantillas — SÍ.** Guardar una licitación como plantilla reutilizable,
+   editable al momento de republicar.
+4. **Invitación restringida — SÍ, sobre Guardados.** El filtro de empresas ya
+   existe: `saved_companies` (migración 019, página /guardados). La licitación
+   privada elige destinatarios desde tus guardados (el "follow" estilo
+   Computrabajo ya es nuestro Guardar empresa). Conecta a futuro con la
+   búsqueda experta IA (5.1): la shortlist desemboca en "invitar a licitación".
+5. **Métricas de admin — al final.** Solo para admin; espera a que haya uso
+   real.
