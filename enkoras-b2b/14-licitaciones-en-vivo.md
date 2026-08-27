@@ -244,7 +244,7 @@ probados: presupuesto invisible para proveedores, ofertas ajenas invisibles entr
 Lo pendiente de L4 quedó decidido así — este es el orden de cierre del spec
 viejo, previo a arrancar la Fase 5 del roadmap:
 
-1. **Solo verificadas ofertan — SÍ.** La verificación la otorga Enkoras y es
+1. **Solo verificadas ofertan — SÍ.** ✅ CONSTRUIDO (26-ago, migración 039 + aviso con CTA en la sala + candado en suite). La verificación la otorga Enkoras y es
    un plus del producto. A futuro será **requisito para comprar el plan
    Proveedor y el de Empresa completa** (Explorador no la pide). Mientras los
    planes no existan, el candado interino es directo: ofertar exige empresa
@@ -254,7 +254,8 @@ viejo, previo a arrancar la Fase 5 del roadmap:
    requiere antes de ofertar.
 3. **Plantillas — SÍ.** Guardar una licitación como plantilla reutilizable,
    editable al momento de republicar.
-4. **Invitación restringida — SÍ, sobre Guardados.** El filtro de empresas ya
+4. ~~Invitación restringida~~ — **CANCELADA hasta nuevo aviso** (26-ago-2026: feature no necesaria por el momento). El diseño sobre Guardados queda anotado abajo por si revive.
+   Diseño original: **sobre Guardados.** El filtro de empresas ya
    existe: `saved_companies` (migración 019, página /guardados). La licitación
    privada elige destinatarios desde tus guardados (el "follow" estilo
    Computrabajo ya es nuestro Guardar empresa). Conecta a futuro con la
