@@ -225,54 +225,105 @@ Migraciones nuevas que definen la estructura B2B:
 
 ---
 
-## FASE 5 — Plan Maestro: asientos, tokens y monetización v2
+## FASE 5 — Plan Maestro: monetización v2 (re-alcance 28-ago-2026)
 
-> Origen: **Plan Maestro Enkoras** (documento de socios, ago-2026). Decisión ya
-> tomada por los socios y confirmada como construible por el CTO. El orden de
-> los bloques es el acordado; Stripe cierra a propósito — se cablea el cobro
-> cuando ya existe todo lo que se cobra.
+> Origen: **Plan Maestro Enkoras** (documento de socios, ago-2026), con el
+> **re-alcance de Javi del 28-ago-2026**: Enkoras arranca del lado
+> PROVEEDORES — la búsqueda experta con IA y el sistema de tokens se
+> POSPONEN a una v2 futura, cuando ya haya clientes reales. El orden de
+> abajo es el de CONSTRUCCIÓN (lo estructural primero); Stripe cierra a
+> propósito — se cablea el cobro cuando ya existe todo lo que se cobra.
 
-### 5.1 Búsqueda experta con IA (sección nueva)
-- Sección propia, separada de `/buscar` — el layout de dos columnas de search
-  no se toca: es identidad.
-- Interacción conversacional: el comprador **describe un requerimiento
-  completo** ("envases PET grado alimenticio, certificado FDA, entrega en
-  Tijuana, 50k/mes"); la IA hace 1-2 preguntas de aclaración si le falta algo.
-- Entrega un **dictamen, no un feed**: shortlist curada de 30-40 empresas que
-  SÍ cumplen, con la evidencia de por qué cumple cada condición, y acciones
-  directas (contactar, guardar, invitar a licitación).
-- Momento de confirmación antes de gastar: "Esto usará 1 token (te quedan N)".
-- Puente desde search: consulta larguísima tipo requerimiento → sugerencia
-  discreta "¿quieres que la IA te lo resuelva? (1 token)".
+### Decisiones del re-alcance (28-ago-2026)
+- **POSPUESTO a v2 futura (con clientes):** búsqueda experta IA y tokens
+  (specs conservados al final de la fase — no se pierden, solo esperan).
+- **Asientos/multiusuario: SE QUEDA** en la tanda cercana.
+- **Límites nuevos por cuenta:** Proveedor **2 empresas** · Empresa completa
+  **4 empresas** (la principal + 3). (El boceto original decía 5 y 10.)
+- **El premium POR EMPRESA muere:** hoy cada empresa paga su propio $499;
+  en v2 el plan es **de la CUENTA** y sus beneficios cubren a sus empresas
+  (acotadas por el límite del plan). Por eso el precio sube — es justo.
+- **Nuevo nivel "Presencia"** (propuesta del CTO, 28-ago, para validar en la
+  mesa de socios): al vencer el trial del Explorador la cuenta NO desaparece
+  — cae a un piso gratis permanente donde su empresa sigue **visible y
+  contactable** en el directorio pero **no puede operar** (ni responder
+  solicitudes, ni ofertar, ni convocar, ni publicar disponibilidad). Tres
+  razones: (1) el catálogo nunca se vacía — un directorio vale por estar
+  lleno (compradores + SEO + oferentes para las subastas); (2) revive el
+  diferenciador de visibilidad — vuelve a existir una masa "normal" sobre la
+  que la prioridad de los pagadores significa algo; (3) es el mejor vendedor:
+  al de Presencia le llega una solicitud que coincide y no puede responderla
+  → "súbete a Proveedor" en el momento de máxima intención.
+- **3.2 del roadmap viejo (destacados/publicidad vendidos): SUPERSEDIDO** por
+  el catálogo v2 — la prioridad en búsquedas vive DENTRO del plan Proveedor,
+  no como producto aparte. Posible revival futuro como add-on entre pagadores
+  (posiciones limitadas por categoría/ciudad), no en esta tanda.
+- **Disponibilidad = el corazón, JAMÁS palanca de cobro (decidido 28-ago):**
+  la disponibilidad es lo que convierte esto en una app viva y no una sección
+  amarilla — el dato que le da confianza al comprador ("vende material +
+  fabrica a la medida + cuadrilla libre" → handshake) no se recorta por plan.
+  Política: **tope de CALIDAD de 3 activas por empresa** (curaduría, no
+  monetización — hoy no existe tope alguno, verificado en código) · igual
+  para TODOS los que operan (Explorador en trial incluido — que pruebe el
+  corazón de la app) · Presencia en 0 solo porque Presencia no opera. En las
+  **cards** de resultados: las disponibilidades ROTAN solas (fade suave ~4s,
+  relojes desfasados entre cards para no marear, pausa al hover, respeta
+  reduced-motion) con el chip "+N" siempre visible; el panel de detalle sigue
+  mostrando todas.
+- **Promesa vieja del premium jamás construida** (estadísticas avanzadas de
+  contacto): sigue como posible palanca de upgrade a decidir en 5.E. El
+  límite de disponibilidades DEJA de ser palanca (ver punto anterior).
+- **Decisión de ranking pendiente (para 5.E):** en búsqueda el orden es
+  mérito (disponibilidad +0.15 > verificada +0.10 > premium +0.08, y la
+  relevancia domina todo); pero en el listado de CATEGORÍA el orden actual es
+  "premium primero siempre, luego rating" — la disponibilidad ahí no ordena.
+  Decidir si la categoría se alinea con la filosofía "el activo le gana al
+  pagador dormido".
 
-### 5.2 Multiusuario — asientos y roles
-- La empresa renta N asientos y los asigna por correo (invitaciones).
-- Al aceptar, cada persona elige rol: **Reclutador** (libera tokens de
-  búsqueda) o **Comprador** (solo publica solicitudes/licitaciones).
+### 5.0 Quick wins de disponibilidad (independientes — no bloquean nada)
+- **Tope de 3 activas por empresa**: migración chiquita (constraint/trigger —
+  el candado vive en BD, como siempre) + mensaje claro en mi-empresa al
+  llegar al tope ("desactiva o edita una para publicar otra").
+- **Carrusel en las cards de resultados**: las disponibilidades rotan solas
+  (fade ~4s, relojes desfasados entre cards, pausa al hover, respeta
+  reduced-motion), chip "+N" siempre visible.
+- Pendientes menores heredados (ninguno bloquea): 2.4 alertas de búsqueda
+  guardada (sin UI) · email digest de notificaciones (el correo transaccional
+  llega con 5.D) · alta en Google Search Console (trámite, no código) ·
+  sincronizar la copia docs/02-roadmap.md del repo directorio-b2b.
+
+### 5.A Multiusuario — asientos y roles *(antes 5.2)*
+- La cuenta renta N asientos y los asigna por correo (invitaciones).
+- Roles: con los tokens pospuestos, el rol "Reclutador" pierde su razón
+  original — los roles se redefinen al diseñar (p. ej. **Admin** /
+  **Comprador**); queda abierto hasta el diseño detallado.
 - Técnica: tabla de miembros (empresa + persona + rol) + RLS por membresía en
-  lugar de `owner_id` único. Convive con el multiempresa actual (1 correo →
-  hasta 5 empresas).
+  lugar de `owner_id` único. Convive con el multiempresa (los límites nuevos:
+  2 por cuenta en Proveedor, 4 en Empresa completa).
+- Es la pieza MÁS estructural (toca la seguridad de toda la app) — por eso va
+  primero: todo lo demás se monta encima.
 
-### 5.3 Sistema de tokens
-- Compra de paquetes, saldo por empresa, consumo por búsqueda experta,
-  historial de movimientos.
-- Precio del token = costo directo ÷ (1 − margen objetivo). **Antes de fijar
-  precio: instrumentar el costo real** (llamadas Gemini + cómputo del
-  matching) — hoy no hay dato de uso real suficiente.
+### 5.B Unificación Solicitudes ↔ Licitaciones *(antes 5.6)*
+- Se construye ANTES del paywall para candar el flujo ya unificado.
+- (El detalle del flujo, en su sección original más abajo — sin cambios.)
 
-### 5.4 Plan Free con vencimiento
-- El Free actual es indefinido → se convierte en trial de captación.
-- El Plan Maestro propone 3 meses; **contrapropuesta de Javi: 1.5–2 meses
-  máximo** (3 se siente excesivo). Pendiente de acordarse con socios; se
-  evaluará de igual forma.
-
-### 5.5 Candado de pago a Licitaciones en vivo
+### 5.C Candado de pago a Licitaciones en vivo *(antes 5.5)*
 - El módulo (ya construido y en producción) pasa a ser **complemento de pago**:
-  solo se accede con suscripción pagada. Se implementa directo — hoy no hay
-  clientes reales registrados (aún sin marketing), así que no hay nadie a
-  quien migrar ni transiciones que cuidar.
+  ofertar EN VIVO desde Proveedor; convocar solo en Empresa completa. Se
+  implementa directo — hoy no hay clientes reales registrados (aún sin
+  marketing), así que no hay nadie a quien migrar ni transiciones que cuidar.
 
-### 5.6 Unificación Solicitudes ↔ Licitaciones
+### 5.D Trial con vencimiento → cae a Presencia *(antes 5.4)*
+- El Free actual es indefinido → se convierte en trial de captación
+  (Explorador). El Plan Maestro propone 3 meses; **contrapropuesta de Javi:
+  1.5–2 meses máximo**. Pendiente de acordarse con socios.
+- Al vencer NO se apaga la cuenta: cae al nivel **Presencia** (ver decisiones
+  arriba) — visible sin operar.
+- Requiere **correo transaccional** (avisos de "tu prueba vence en X días"):
+  hoy la app no envía ningún email; Resend ya está contratado (lo usa Supabase
+  Auth) — falta cablearlo en la app.
+
+### Detalle de 5.B — Unificación Solicitudes ↔ Licitaciones
 - Un solo flujo "**Publica tu necesidad**" con dos modos:
   - **Normal / sobres cerrados** (hoy: solicitud) — cada proveedor manda UNA
     oferta a ciegas: sin pulso, sin ver a los demás, sin mejorarla, sin
@@ -290,48 +341,74 @@ Migraciones nuevas que definen la estructura B2B:
   solicitudes. Migrar solicitudes existentes y no romper el ruteo
   `request_match`.
 
-### 5.7 Catálogo de planes v2 (el nuevo menú comercial)
-Estructura de trabajo **entendida y aceptada por Javi (22-ago-2026)** — boceto
-visual en el artifact "Planes Enkoras v2". Los planes se nombran por **lo que
-eres** (explorar / vender / comprar-y-vender), no por tamaño:
+### 5.E Catálogo de planes v2 — CUATRO niveles *(antes 5.7)*
+Estructura original **entendida y aceptada por Javi (22-ago-2026)**, ajustada
+con el re-alcance del 28-ago: límites 2/4, sin tokens ni IA por ahora, y el
+nivel Presencia nuevo. Boceto visual en el artifact "Planes Enkoras v2". Los
+planes se nombran por **lo que eres**, no por tamaño:
 
 | Plan | Para quién | Qué incluye |
 |---|---|---|
-| **Explorador** — $0, trial 2 meses | Conocer la plataforma | Home, categorías, búsqueda, contactar, 1 empresa. Al vencer: plan o pausa |
-| **Proveedor** — $—/mes | El que **vende** | Hasta 5 empresas, prioridad en búsquedas, responder solicitudes, **ofertar** en licitaciones EN VIVO |
-| **Empresa completa** — $—/asiento/mes | El que **compra** (o ambos) | Todo lo anterior + hasta 10 empresas, publicar sobres cerrados, **convocar** EN VIVO, asientos con roles, **mesada de tokens/mes** |
-| **Recargas de tokens** — consumible | Búsqueda experta | La mesada del plan se reinicia cada mes; el paquete extra se suma al saldo. Nunca "ilimitado" |
+| **Presencia** — $0 permanente | A donde CAE el trial vencido | Su empresa sigue visible y contactable en el directorio. NO opera: ni responder solicitudes, ni ofertar, ni convocar, ni publicar disponibilidad |
+| **Explorador** — $0, trial 1.5–2 meses | Conocer la plataforma | Home, categorías, búsqueda, contactar, 1 empresa. Al vencer: elige plan o cae a Presencia |
+| **Proveedor** — $—/mes | El que **vende** | Hasta **2 empresas**, prioridad en búsquedas, responder solicitudes, **ofertar** en licitaciones EN VIVO |
+| **Empresa completa** — $—/asiento/mes | El que **compra** (o ambos) | Todo lo anterior + hasta **4 empresas** (principal + 3), publicar sobres cerrados, **convocar** EN VIVO, asientos con roles |
 
 Reglas del catálogo:
 - **Ofertar vive en Proveedor (barato) y convocar solo en Empresa completa**:
   el que convoca recibe el ahorro y paga fuerte; el que oferta da la liquidez
   que hace bajar los precios y paga suave.
-- El cliente "solo quiero IA y licitaciones" NO necesita plan especial: es
-  Empresa completa con 1 asiento y 1 empresa.
-
-- Ningún precio se publica hasta tener los números del CTO (costo por
-  búsqueda y desglose del $950).
+- El plan es **por CUENTA** (muere el premium por-empresa del v1): los
+  beneficios cubren a las empresas de la cuenta, acotadas por su límite.
+- Aquí se deciden también: las palancas de upgrade heredadas del roadmap
+  viejo (estadísticas pro · límite de disponibilidades por nivel) y la regla
+  de ranking del listado de categoría (ver decisiones del re-alcance).
+- Ningún precio se publica hasta tener el desglose del $950.
 - Los cambios de plan se hacen directo, sin planes de transición: no hay
   clientes reales registrados todavía (el marketing no ha arrancado).
 - La suscripción de profesionistas ($800) es del lado Talento — no es de esta
   plataforma; se lista solo para que el catálogo global cuadre.
 
-### 5.8 Stripe v2 (el cierre)
-- Webhooks nuevos, precios por asiento, venta de paquetes de tokens, cargo del
-  complemento de licitaciones, trial con vencimiento — la configuración
-  completa, al final, cuando 5.1–5.7 ya existen.
+### 5.F Stripe v2 (el cierre) *(antes 5.8)*
+- Webhooks nuevos, precios por asiento, cargo del complemento de licitaciones,
+  trial con vencimiento y caída a Presencia — la configuración completa, al
+  final, cuando 5.A–5.E ya existen.
 - CFDI 4.0 desglosado por asiento y por complemento (requisito legal del Plan
   Maestro).
 
-**Datos que produce el CTO para calibrar precios (previo a 5.3/5.7):**
-tasa de conversión real Free→Premium de las empresas registradas · costo real
-por búsqueda con IA · desglose del precio de trabajo de $950 MXN (cuánto es
-asiento base, cuánto licitaciones).
+### ⏳ POSPUESTO a v2 futura (cuando ya haya clientes) — specs conservados
 
-**Criterio de salida de Fase 5:** una empresa puede comprar asientos,
-invitar a su equipo con roles, gastar tokens en la búsqueda experta, publicar
-necesidades en ambos modos, y el complemento de licitaciones se cobra —
-todo facturado por Stripe con CFDI desglosado.
+**Búsqueda experta con IA** *(antes 5.1)*
+- Sección propia, separada de `/buscar` — el layout de dos columnas de search
+  no se toca: es identidad.
+- Interacción conversacional: el comprador **describe un requerimiento
+  completo** ("envases PET grado alimenticio, certificado FDA, entrega en
+  Tijuana, 50k/mes"); la IA hace 1-2 preguntas de aclaración si le falta algo.
+- Entrega un **dictamen, no un feed**: shortlist curada de 30-40 empresas que
+  SÍ cumplen, con la evidencia de por qué cumple cada condición, y acciones
+  directas (contactar, guardar, invitar a licitación).
+- Momento de confirmación antes de gastar: "Esto usará 1 token (te quedan N)".
+- Puente desde search: consulta larguísima tipo requerimiento → sugerencia
+  discreta "¿quieres que la IA te lo resuelva? (1 token)".
+
+**Sistema de tokens** *(antes 5.3)*
+- Compra de paquetes, saldo por cuenta, consumo por búsqueda experta,
+  historial de movimientos. La mesada mensual vuelve al plan Empresa completa
+  cuando esto reviva.
+- Precio del token = costo directo ÷ (1 − margen objetivo). **Antes de fijar
+  precio: instrumentar el costo real** (llamadas Gemini + cómputo del
+  matching).
+
+**Datos que produce el CTO para calibrar precios (previo a 5.E/5.F):**
+tasa de conversión real Free→Premium de las empresas registradas · desglose
+del precio de trabajo de $950 MXN (cuánto es asiento base, cuánto
+licitaciones) · costo real por búsqueda IA (solo cuando reviva la v2 de IA).
+
+**Criterio de salida de Fase 5:** una cuenta puede comprar asientos e invitar
+a su equipo con roles, publicar necesidades en ambos modos (sobres cerrados /
+EN VIVO), el complemento de licitaciones se cobra, el trial vence y cae a
+Presencia sin vaciar el directorio — todo facturado por Stripe con CFDI
+desglosado.
 
 ---
 
@@ -344,7 +421,7 @@ todo facturado por Stripe con CFDI desglosado.
 | 2 | Conexión | Solicitudes con ruteo, mensajería realtime, notificaciones, alertas | Fase 1 |
 | 3 | Monetización y lanzamiento | Planes, destacados, SEO, lanzamiento BC con test 2-3 meses | Fase 2 |
 | 4 | Expansión | Estados MX, USA, apps móviles, features de profundidad | Fase 3 + datos del test |
-| 5 | Plan Maestro | Búsqueda experta IA, asientos+roles, tokens, trial con vencimiento, paywall licitaciones, unificación solicitudes/licitaciones, Stripe v2 | Fase 3 + Plan Maestro |
+| 5 | Plan Maestro (re-alcance 28-ago) | Asientos+roles → unificación solicitudes/licitaciones → paywall EN VIVO → trial que cae a Presencia → planes v2 de 4 niveles (límites 2/4) → Stripe v2. IA y tokens pospuestos a v2 con clientes | Fase 3 + Plan Maestro |
 
 ---
 
@@ -355,4 +432,4 @@ todo facturado por Stripe con CFDI desglosado.
 - **Fase 2:** el riesgo es construir mensajería compleja de más. Control: chat 1-a-1 simple; nada de grupos, archivos ni features de Slack.
 - **Fase 3:** el riesgo es lanzar sin masa mínima. Control: no se anuncia públicamente hasta tener el seed de proveedores invitados con perfiles completos (el playbook de mensajes directos ya está probado con Tu Local).
 - **Fase 4:** el riesgo es expandir sin datos. Control: cada estado nuevo se abre solo cuando las métricas del anterior lo justifican.
-- **Fase 5:** el riesgo es fijar precio de token sin dato real de costo. Control: instrumentar consumo de IA durante el piloto antes de anunciar precio.
+- **Fase 5:** dos riesgos. (a) El acantilado del trial: si el vencimiento borrara empresas, cada trial vencido vaciaría el catálogo — control: el nivel Presencia (visible sin operar), el directorio nunca se vacía. (b) Fijar precios sin datos — control: nada se publica sin el desglose del $950; y cuando reviva la IA (v2), instrumentar el costo por búsqueda antes de anunciar precio de token.
