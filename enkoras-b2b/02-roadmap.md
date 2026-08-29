@@ -292,6 +292,38 @@ Migraciones nuevas que definen la estructura B2B:
   llega con 5.D) · alta en Google Search Console (trámite, no código) ·
   sincronizar la copia docs/02-roadmap.md del repo directorio-b2b.
 
+### Bloque M — Mi Empresa se vuelve dashboard (intercalado antes de 5.A, decidido 28-ago)
+> El panel quedó desactualizado: columna centrada de formularios, sin
+> estadísticas (company_events jamás se instrumentó — la app ni escribe ni
+> lee eventos), sin licitaciones ni reseñas, /cuenta en otro layout. Se
+> moderniza a dashboard real ANTES de construir asientos encima (5.A vivirá
+> aquí). Vara: nivel asombroso, nada mediocre.
+
+- **M1 — El grifo de datos**: instrumentar company_events desde el perfil
+  público (view al montar con dedupe por sesión + clicks tel/WA/email/web/
+  chat; el dueño no se cuenta a sí mismo). Sin UI — el reloj de datos
+  empieza a correr de inmediato. La tabla, RLS y retención ya existen.
+- **M2 — El cascarón**: sidebar fijo izquierdo full-height (selector
+  multi-empresa arriba, navegación AGRUPADA: Inicio / Actividad / Perfil
+  público / Plan / Mi cuenta, "ver mi perfil" abajo, indicador deslizante
+  con resorte) + contenido a TODO el ancho (los formularios conservan ancho
+  legible; lo que crece es el lienzo). Integra /cuenta al mismo shell
+  (persona ≠ empresa como grupos — crítico para 5.A asientos; el usuario
+  SIN empresa conserva /cuenta funcional). Pase visual completo: bordes en
+  cards de sección, transición al cambiar sección (nada en seco), popover
+  animado, fallbacks naranjas, next/image, jerarquía de botones. Móvil:
+  drawer. Las 9 secciones migran tal cual.
+- **M3 — El Resumen** (nueva sección default): stat tiles (vistas, clicks
+  con desglose, conversaciones, rating) + gráfica 7/30/90 días + "estado
+  del negocio" (verificación, plan, disponibilidades x/3, categorías,
+  completitud) + actividad reciente + accesos rápidos + card de
+  licitaciones con números y link (no se duplica la sala).
+- **M4 — Reorganización fina**: Ubicación se parte (Ubicación / Contacto y
+  redes) · RFC en UN solo lugar (Verificación; en Datos solo lectura si
+  aprobado) · nueva sección Reseñas (monitorear las recibidas) · pulido
+  interno de cada sección al estándar actual. Plan v1 se migra congelado
+  (lo rehace 5.E).
+
 ### 5.A Multiusuario — asientos y roles *(antes 5.2)*
 - La cuenta renta N asientos y los asigna por correo (invitaciones).
 - Roles: con los tokens pospuestos, el rol "Reclutador" pierde su razón
@@ -355,6 +387,12 @@ planes se nombran por **lo que eres**, no por tamaño:
 | **Empresa completa** — $—/asiento/mes | El que **compra** (o ambos) | Todo lo anterior + hasta **4 empresas** (principal + 3), publicar sobres cerrados, **convocar** EN VIVO, asientos con roles |
 
 Reglas del catálogo:
+- **La verificación es requisito de los planes de operación** (confirmado por
+  Javi 28-ago, venía de la mesa de socios pero no estaba escrito): para
+  contratar Proveedor o Empresa completa la empresa debe estar verificada.
+  La verificación deja de ser cosmética — es la credencial que abre las
+  funciones de operar. El candado se cablea en 5.E (y la sección Verificación
+  del panel ya comunica este rol desde ahora).
 - **Ofertar vive en Proveedor (barato) y convocar solo en Empresa completa**:
   el que convoca recibe el ahorro y paga fuerte; el que oferta da la liquidez
   que hace bajar los precios y paga suave.
