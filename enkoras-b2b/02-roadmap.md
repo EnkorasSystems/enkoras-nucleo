@@ -293,6 +293,16 @@ Migraciones nuevas que definen la estructura B2B:
   sincronizar la copia docs/02-roadmap.md del repo directorio-b2b.
 
 ### Bloque M — Mi Empresa se vuelve dashboard (intercalado antes de 5.A, decidido 28-ago)
+
+**✅ BLOQUE COMPLETO Y EN PROD (29-ago-2026).** M1 telemetría · M2 shell con
+sidebar/drawer + categorías AI-first · M3 Resumen en vivo (rollup 055 +
+realtime 056, tiles/gráfica/semáforo, sección default) · M4 reorganización
+(RFC solo en Verificación —también fuera del wizard—, sección Reseñas
+solo-lectura, Guardados integrada al HQ y al estándar, app-shell con scroll
+solo en contenido, Mi Cuenta rediseñada con correo/sesiones, límite de
+empresas 5→4 = techo del catálogo v2, fix del bookmark mudo). Extra del
+camino: umbral semántico 0.62, descripción obligatoria en 4 capas, nudge de
+reclasificación. Sigue: **5.A asientos y roles**.
 > El panel quedó desactualizado: columna centrada de formularios, sin
 > estadísticas (company_events jamás se instrumentó — la app ni escribe ni
 > lee eventos), sin licitaciones ni reseñas, /cuenta en otro layout. Se

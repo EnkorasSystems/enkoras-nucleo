@@ -231,3 +231,82 @@
 - **Petición:** "el umbral, en base a tu conocimiento y la proyección futura, ¿qué crees que sea mejor?"; "me interesa lo del nudge pero ocupo que me lo expliques bien"; "lo del wizard no lo entiendo, explícame qué pantalla es"; y corrigió el dato del cron ("son la 1:47 AM apenas"). Tras las explicaciones: "estoy de acuerdo con todo y lo comprendí, empecemos".
 - **Razonamiento:** delega decisiones técnicas al criterio experto pero NO firma nada que no entienda — pidió explicación completa de cada pieza antes del go. Y verificó el detalle del cron contra su propio reloj: no acepta afirmaciones sin cuadrar los hechos.
 - **Término(s):** delegar la decisión ≠ delegar la comprensión · aprobar por entendimiento, no por confianza ciega · umbral calibrado con mediciones reales (0.62 entre banda de ruido 0.57-0.62 y relevantes 0.65+).
+### 39. Retención de datos: generó, evaluó y descartó su propia idea
+- **Contexto:** análisis del Resumen (M3); le preocupa datos = almacenamiento = dinero.
+- **Petición:** (a) agregar al Resumen una card de MI actividad de licitaciones (creadas + participadas); (b) propuso y AUTO-DESCARTÓ la idea del backup trimestral por correo (ZIP con métricas + reporte Excel): "al hacerlo usar otra herramienta es ineficiente, cuando yo ya le estoy dando ese servicio incluido... mejor filtros por fecha en el dashboard y conservamos sus datos"; (c) preguntó cuánto tiempo resguardar, razonando jerarquía de criticidad: "los nuestros son solo métricas — importantes, pero no como inventarios o efectivo; un nivel más bajo".
+- **Razonamiento:** ciclo completo de diseño en un solo mensaje: idea → evaluación contra el principio del producto (la visibilidad vive DENTRO del dashboard) → descarte argumentado. Y clasificó los datos por criticidad antes de decidir su retención, en vez de aplicar una regla pareja.
+- **Término(s):** matar las ideas propias es diseño (kill your darlings) · el valor no debe salir del producto (el loop de retorno) · retención por criticidad del dato, no por regla uniforme.
+### 40. "Cada cuenta solo ve lo suyo" — el aislamiento como requisito explícito
+- **Contexto:** diseño del Resumen (M3) aprobado con realtime; antes de arrancar puso el requisito de seguridad.
+- **Petición:** "probablemente ya lo sepas pero lo debo decir de igual forma: cada cuenta solo ve lo suyo — temas de IAM y de roles; no quisiera que tal empresa vea cosas de la mía ni yo de la suya".
+- **Razonamiento:** verbalizar el requisito de seguridad aunque "probablemente ya esté" — los supuestos de seguridad no se asumen, se declaran y se verifican. Resultó que ya estaba blindado a nivel BD (RLS owner-only en company_events desde 008).
+- **Término(s):** los requisitos de seguridad se declaran aunque parezcan obvios · aislamiento en la capa más profunda (BD), no en la UI.
+### 41. El ancho se decide por el tipo de contenido
+- **Contexto:** el Resumen (dashboard) heredó el ancho acotado max-w-3xl que él mismo pidió para los formularios — quedó una columna angosta con un tercio de pantalla vacío (lo marcó con un recuadro rojo).
+- **Petición:** "estás haciendo todo el overview en una sola columna y eso puede provocar demasiado scroll, cuando al lado tienes espacio suficiente para acomodar el layout en 2 o 3 columnas — tienes espacio disponible, úsalo bien".
+- **Razonamiento:** su regla anterior ("acomodado, no estirado") era para formularios; supo distinguir que un dashboard obedece otra regla (se escanea, no se llena) sin contradecirse. Las reglas de layout son POR TIPO de contenido, no globales.
+- **Término(s):** densidad por propósito (formulario angosto, dashboard ancho) · el espacio vacío también es un bug · refinar la regla propia sin absolutizarla.
+### 42. "Tenders" cazado al vuelo + preguntar qué muestra antes de aprobar
+- **Contexto:** revisión visual del Resumen recién ensanchado.
+- **Petición:** (a) "le pusiste tenders a la card cuando ya habíamos decidido bids, porque tenders es más europeo — se supone que habías guardado esa info"; (b) "la card de recent activity, ¿qué mostrará?".
+- **Razonamiento:** detectó UNA palabra fuera del vocabulario decidido en una pantalla llena de elementos (el resto del app ya decía Bids y la card nueva lo rompió), y exigió que la decisión viva en memoria persistente, no en la conversación. Y antes de dar visto bueno a una card vacía, preguntó qué va a mostrar — no aprueba cascarones sin conocer el contenido.
+- **Término(s):** vocabulario de producto como contrato (una sola voz en toda la app) · las decisiones se persisten o se repiten · no aprobar lo que no se entiende.
+### 43. La actividad no crece: se desvanece
+- **Contexto:** primera prueba en vivo del realtime del Resumen (los eventos entraban "just now").
+- **Petición:** "¿cuántos rows se generan? No quiero que se generen infinitamente y el container se vaya agrandando — la idea es que se vayan desvaneciendo poco a poco los anteriores cuando salga uno nuevo". Y: "los clickeables de 7/30/90 días muévelos a la esquina superior derecha, al nivel del Overview".
+- **Razonamiento:** ante una lista alimentada en vivo, su primera pregunta fue el límite (los contenedores tienen presupuesto de espacio) y propuso la metáfora visual correcta: lo viejo se desvanece por edad, no se apila. Y reubicó el control de rango a la jerarquía que le corresponde: manda sobre TODA la sección, así que vive en el header, no en el cuerpo.
+- **Término(s):** presupuesto de espacio en listas vivas · recencia como opacidad · el alcance de un control define su posición.
+
+### 44. Reseñas sin respuesta: la esencia es mejorar, no litigar
+- **Contexto:** revisando la sección Reseñas nueva (publicó una de prueba y la vio aparecer).
+- **Petición:** "¿es necesario poder responderlas? Creo que las reseñas son para que los demás users las lean; interferir directamente no creo que sea buena idea... siento que responder es como querer enmendar el problema para que no afecte el negocio, pero pierde la esencia: verlas y mejorar en los puntos negativos, no estar respondiendo cada una... aunque sabemos que los clientes exageran y siempre habrá alguien inconforme".
+- **Razonamiento:** analizó la feature desde su PROPÓSITO (las reseñas informan a terceros y disciplinan al negocio) y detectó que responder cambia el incentivo (de mejorar el servicio a gestionar la imagen). Consideró el contracaso honesto (la 1 estrella injusta a Tarimas) sin dejarse arrastrar por él. Dejó la puerta abierta al error propio ("o tal vez me equivoco").
+- **Término(s):** diseñar por el propósito del mecanismo, no por el caso doloroso · los incentivos que una feature crea importan más que la feature · reversibilidad de la decisión (revisar con datos reales).
+
+### 45. RFC fuera del wizard + "reportar reseña" a maduración
+- **Contexto:** cierre de M4 — coherencia del principio "RFC en un solo lugar" y la válvula propuesta para reseñas injustas.
+- **Petición:** "sobre lo del wizard sí, quitémoslo; sobre lo de reportar reseña, es buena idea pero debo considerarla más — así como está ahora es más que suficiente".
+- **Razonamiento:** aceptó extender el principio hasta su consecuencia completa (si el RFC vive en Verificación, el wizard no lo pide — menos fricción de registro y cero datos fiscales flotando sin validar), y frenó una feature razonable no por mala sino por prematura: la deja madurar en vez de construirla por si acaso.
+- **Término(s):** los principios se aplican hasta el final, no a medias · "buena idea" ≠ "constrúyela ya" · el backlog como sala de maduración.
+
+### 46. El cartel importante no vive en la orilla
+- **Contexto:** revisando el wizard tras quitar el RFC; el aviso naranja de IA vivía al pie de la columna lateral derecha.
+- **Petición:** "los carteles naranjas son importantes; esa ubicación no es precisamente la mejor. Agrega un bloque contenedor en el top, arriba del wizard y de la columna de datos — que abarque el ancho de ambos. Quiero ver cómo queda".
+- **Razonamiento:** jerarquía visual = jerarquía de importancia: si el mensaje es clave (la IA lee tu descripción), no puede vivir en la periferia donde el ojo llega al final o nunca; preside a lo ancho, arriba de todo. Y pidió verlo antes de opinar (juzga en pantalla, no en descripción).
+- **Término(s):** posición como declaración de importancia · la periferia es donde mueren los mensajes · juzgar sobre el render, no sobre el plan.
+
+### 47. Guardados entra al HQ antes de cerrar el bloque
+- **Contexto:** a punto de commitear el cierre de M4, frenó: "no creo que aún — ¿recuerdas que tenemos una sección de favoritos?".
+- **Petición:** integrar Guardados al panel y "rediseñar esa sección, hacerla bien de acuerdo a mis estándares de UI/UX y a la proyección futura, conforme al contexto de todo lo que llevamos".
+- **Razonamiento:** antes de declarar terminado un bloque, barrió el mapa completo buscando la pieza olvidada — y la encontró: una sección pre-estándar (blueprint vivo, fuera del shell) que contradecía todo lo construido. "Terminado" significa que NADA quedó atrás, no que lo nuevo esté bonito.
+- **Término(s):** cerrar un bloque = auditar el perímetro completo · la pieza olvidada delata el estándar · coherencia retroactiva (lo viejo se sube al nivel de lo nuevo).
+
+### 48. El bug del bookmark mudo (reporte de QA de primera)
+- **Contexto:** probando Guardados recién integrada al panel.
+- **Petición:** "encontré otro bug: fui a search, le di al botón guardar en la card y no salió nada — ni una acción ni una confirmación — y en favoritos tampoco aparece. Revisa eso por favor".
+- **Razonamiento:** reporte de bug perfecto en tres líneas: pasos exactos, comportamiento esperado implícito, y verificación cruzada (revisó el destino, no solo el origen). El diagnóstico resultó fino: el interceptor de clics del panel dual (fase de captura, anterior a React) se tragaba el clic del bookmark; como la card ya estaba seleccionada, re-seleccionarla no pintaba nada — silencio total.
+- **Término(s):** QA con verificación en ambos extremos del flujo · los interceptores globales deben ceder ante los controles internos · el silencio es el peor modo de fallo.
+
+### 49. Mi Cuenta: revisar que funcione ANTES de embellecer
+- **Contexto:** tras cerrar Guardados, siguió barriendo el perímetro: "la sección Mi Cuenta también está muy mal en diseño, layout, opciones — necesito que la revises que REALMENTE funcione y la mejoremos".
+- **Petición:** auditoría funcional primero, rediseño después — en esa orden.
+- **Razonamiento:** no pidió "hazla bonita": pidió verificar el funcionamiento real y LUEGO mejorar. La estética sobre un botón roto es maquillaje. Y "opciones etc" delató su instinto de completitud: una página de cuenta sin cambiar correo ni cerrar sesiones se siente amateur aunque se vea bien.
+- **Término(s):** funcionalidad antes que estética · completitud de expectativas (lo que toda página de su tipo debe tener) · el barrido del perímetro continúa.
+
+### 50. Persona ≠ empresa hasta en el copy + matriz por tipo de acceso
+- **Contexto:** revisión del rediseño de Mi Cuenta.
+- **Petición:** (a) "'así te ves en el resto de la plataforma' va a confundir: van a decir '¿entonces no me ven como mi empresa?' — que diga el nombre de tu CUENTA, no de tu perfil público, que ese es tu empresa/anuncio"; (b) "cambiar contraseña y correo imagino que solo aplican a cuentas creadas con correo; la gente que entra por Gmail, esas opciones no deben estar disponibles ¿correcto?"; (c) "la zona de peligro sí funciona en los dos tipos ¿no?".
+- **Razonamiento:** leyó el copy con los ojos del usuario confundible (la ambigüedad persona/empresa que él mismo institucionalizó en el sidebar) y luego auditó las opciones como MATRIZ: cada opción × cada tipo de acceso — la pregunta que atrapa los huecos que el caso feliz esconde.
+- **Término(s):** el copy también respeta el modelo persona≠empresa · auditar features como matriz (opción × tipo de usuario) · preguntar "¿correcto?" para verificar supuestos en vez de asumirlos.
+
+### 51. El riel de contexto: regrésalo
+- **Contexto:** para desapachurrar los hints de Mi Cuenta se probó un riel lateral (patrón del wizard) con la card "Tú y tu empresa" + consejo de seguridad, adelgazando los hints de las cards.
+- **Petición:** "No, quedó horrible — en especial ese cartel de tú y tu empresa. Estaba mucho mejor antes lo que decía dentro de las cards de perfil y de contraseña".
+- **Razonamiento:** la explicación pertenece al LADO del control que explica, no a un panel aparte que obliga a conectar dos lugares. El riel didáctico funcionó en el wizard (usuario nuevo, flujo guiado) pero en una página de ajustes estorba: ahí se viene a hacer, no a aprender. Revert limpio, sin defender el intento.
+- **Término(s):** la ayuda vive junto a lo que ayuda (proximidad de Gestalt) · el mismo patrón no sirve en todos los contextos (wizard ≠ settings) · regrésalo sin ego.
+
+### 52. El apachurre tenía nombre: la sangría del hint
+- **Contexto:** tras el revert del riel, siguió mirando hasta aislar la molestia real.
+- **Petición:** "ya sé qué es lo que me molesta: los textos de información empiezan en la primera letra del título de la card, y no es así como quiero — necesito que empiecen en el principio del icono y terminen al final del largo de los inputs. Trata a ver cómo queda".
+- **Razonamiento:** no se conformó con "algo se ve mal": iteró hasta DIAGNOSTICAR el pixel exacto (la sangría de 2.625rem alineada al título comprimía el párrafo). La solución era una línea, pero encontrarla requirió dos intentos fallidos de terceros y su ojo. El fix aplicó a TODAS las cards del panel de un golpe (vivía en el componente compartido).
+- **Término(s):** diagnosticar la molestia hasta el pixel · arreglar en el componente compartido = arreglar en todos lados · el proceso de aproximación (probar → rechazar → aislar) es el método, no el desperdicio.
