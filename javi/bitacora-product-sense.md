@@ -682,3 +682,33 @@ soy"*.
 piensa extender, revisar la BASE y el backend aunque no lo mencione — su
 "perfecto" nunca es solo lo que se ve. Y proponer los bloques antes de tocar
 código, con el hallazgo del backend por delante.
+
+---
+
+## #77 — "Que refleje lo que realmente es hoy" (1-sep-2026)
+
+**Lo que pidió.** Al cerrar 5.B le pasé los pendientes que había dejado. El
+primero era qué hacer con la sección "Mis solicitudes" del panel de mi-empresa,
+ahora que Solicitudes se retiró. Su respuesta: *"pendiente 1 la sección de
+solicitudes, creo que se debería cambiar y reflejar lo que realmente es hoy,
+las bids y cotizaciones, no crees"*.
+
+**La señal.** Yo le había planteado la duda como binaria: ¿se borra la sección,
+o se queda? Él rechazó las dos y eligió la tercera, que era la correcta: **se
+transforma**. La sección no sobraba — lo que sobraba era su nombre y su
+contenido, que describían un producto que ya no existe.
+
+Es el mismo instinto de [[#74]]: mira el producto entero, no el pendiente
+aislado. Retirar una feature no es solo apagar sus rutas; es que **todo lo que
+la nombraba deje de mentir**. Un panel que sigue diciendo "Mis solicitudes"
+después de que las solicitudes dejaron de existir es una pantalla que miente,
+aunque técnicamente no esté rota.
+
+Y va en la dirección de su regla de siempre: la app se explica sola. Si el
+usuario publica bids, el panel dice bids.
+
+**Cómo aplicarlo.** Al retirar una feature, no preguntar "¿borro esto o lo
+dejo?" — hacer el inventario de TODO lo que la nombra (secciones, textos,
+iconos, navegación, tests) y proponer en qué se convierte cada cosa. Y cuando
+le presente una decisión, no encerrarla en dos opciones si existe una tercera
+mejor: él la va a encontrar.
