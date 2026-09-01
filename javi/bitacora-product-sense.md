@@ -405,310 +405,92 @@
 
 ---
 
-## #68 — "Ignora el 3.7 por favor" (31-ago-2026)
-
-**Contexto.** Javi cuestionó que yo dijera "Gemini está caído": *"¿en qué sentido, las
-API keys no responden o es por temas de modelos? Se supone que habíamos arreglado el
-tema de diferentes modelos y precisamente para que nunca hubiera una caída tenemos 5
-API keys disponibles, analiza qué está pasando"*. A media investigación soltó la
-decisión: **"ignora el 3.7 por favor"**.
-
-**La señal.** Dos cosas, y las dos son product sense duro:
-
-1. **No aceptó "está caído" como respuesta.** Exigió la distinción entre *la llave no
-   responde* y *el modelo no responde* — que es exactamente la distinción que el código
-   NO hacía. Tenía razón en desconfiar: habíamos comprado redundancia (5 llaves) para un
-   riesgo (cuota) y la caída vino del otro (saturación del modelo). Redundancia en el
-   eje equivocado es cero redundancia.
-2. **Vetó 3.7 sin pedir análisis.** Ya lo había mordido el 28-ago (el alias
-   `gemini-flash-latest` se movió solo a 3.7 y colgaba >25s). No quiso volver a
-   discutirlo: modelo con antecedentes, fuera de la lista. Memoria de producto.
-
-**Cómo aplicarlo.** Cuando un sistema tenga respaldo, preguntarse *¿respaldo contra qué
-exactamente?* y verificar que el modo de falla real esté cubierto por ese eje. Y cuando
-Javi veta algo que ya falló antes, no se re-litiga: se saca y se documenta por qué.
-
----
-
-## #69 — "Mismo maldito problema" (31-ago-2026)
-
-**Contexto.** Javi probó "Cancelar edición" con dos cuentas abiertas y el aviso
-*"Esta sección la está editando Javier Calixto"* NO desapareció del otro lado:
-*"otra vez cosas de realtime"*. Es la SEGUNDA vez que caza el mismo síntoma —
-la primera derivó en la migración 076 (REPLICA IDENTITY FULL).
-
-**La señal.** Yo había dado el bug por cerrado con 076 y él no. Tenía razón: la
-migración era necesaria pero no suficiente. La causa real estaba en el cliente:
-
-```js
-const fila = (payload.new ?? payload.old)   // ← el bug
-```
-
-En un DELETE, Supabase manda `new: {}` — un objeto **vacío**, que NO es nullish.
-El `??` se quedaba con el `{}`, el campo discriminante salía `undefined` y el
-guard descartaba el evento ANTES de llegar a la rama del borrado. O sea: el dato
-del DELETE sí viajaba (gracias a 076) y el cliente lo tiraba a la basura.
-
-Estaba en dos lados: candados de edición y claims de chat.
-
-**Cómo aplicarlo.** Dos lecciones:
-
-1. **Un síntoma que reaparece significa que la causa no estaba encontrada, no
-   que haga falta otra capa encima.** La primera vez atendí la capa de BD porque
-   era la sospechosa plausible; no verifiqué el cliente. Cuando Javi repite un
-   reporte, el trabajo es reabrir la causa desde cero, no reforzar la hipótesis.
-2. **Verificar con una sonda, no con lógica.** El arreglo salió de imprimir el
-   payload REAL de un DELETE contra la base de producción. Adivinar la forma de
-   un payload es exactamente el tipo de suposición que costó las dos rondas.
-
-Su dogfooding con dos cuentas abiertas encontró lo que tres rondas de auditoría
-y una jornada E2E de 41 pasos no vieron: las pruebas automatizadas no miran DOS
-pantallas al mismo tiempo.
-
----
-
-## #70 — "Esto ya te lo he confirmado miles de veces" (31-ago-2026)
-
-**Contexto.** Al repasar la cola de pendientes le listé como abierto el modelo
-de sillas 3/5/7. Corrección seca: *"esto ya te lo he confirmado miles de veces.
-Lo único que no he confirmado es los precios"*. Y de paso cerró y corrigió tres
-cosas más de la misma lista.
-
-**Decisiones que quedaron cerradas aquí:**
-- **Sillas 3/5/7: CONFIRMADO** (base 3 = dueño+admin+operador; Premium 1 = 5;
-  Premium 2 = 7). Lo único abierto de ese tema son los PRECIOS.
-- **Trial = 1 MES**, no 1.5 ni 2: *"un mes es suficiente, de igual lo podemos
-  cambiar luego"*. Decisión tomada sin agonizarla, con la puerta abierta a
-  ajustarla con datos — su patrón de siempre.
-- **Las empresas demo NO se borran**: *"son ejemplos que uso para pruebas, hasta
-  que yo no lo diga no las borramos"*. Deja de ser un pendiente y pasa a ser una
-  instrucción de NO TOCAR.
-- SEO: al final, otra vez confirmado.
-
-**La señal.** Arrastrar como "pendiente" algo ya decidido no es inocuo: le hace
-re-litigar decisiones cerradas y le quita autoridad a la lista completa. Una
-cola de pendientes que miente sobre su propio contenido deja de servir para
-priorizar. Además dos ítems estaban escritos en jerga mía ("gating visual por
-switch", "resto del correo transaccional") y no los entendió — un pendiente que
-el dueño del producto no puede leer tampoco es un pendiente, es una nota mía.
-
-**Cómo aplicarlo.** Al cerrar cada tema, mover la decisión a CONFIRMADO en la
-memoria en el momento, con la fecha y su frase. Y escribir la cola en lenguaje
-de producto, no de implementación: qué ve o no ve el usuario, no cómo se llama
-la técnica.
-
----
-
-## #71 — "Para todo tienen que entrar a la app" (31-ago-2026)
-
-**Contexto.** Le expliqué dos pendientes que estaban en jerga mía. Resolvió los
-dos en direcciones opuestas, y ahí está lo interesante.
-
-**1. El bloqueo por llave: SÍ, pero discreto.** Su dirección textual:
-*"bloquear los botones… algún mensaje que aparezca cuando le dé clic pero que
-no esté siempre… algo que no moleste pero que transmita que no tienes permiso…
-a veces menos es más, algo simple puede ser lo mejor, un candadito"*.
-
-Tres reglas de diseño en una frase: (a) el aviso NO vive en la pantalla, se
-gana con el intento; (b) la marca permanente es mínima — un candado, no un
-banner; (c) se puede ENTRAR a mirar, solo no editar. Nada de esconder secciones:
-esconder deja a la persona sin contexto de lo que existe.
-
-**2. El correo de notificaciones: NO.** *"La idea es que para todo tengan que
-entrar a la app, no que tengan que usar el correo, no tiene sentido. El correo
-será solo para problemas o cosas así, no para notificaciones."*
-
-Yo lo había propuesto como una mejora obvia (avisar por correo lo que hoy solo
-se ve entrando). Él lo leyó como lo que también es: **una fuga**. Un correo que
-resume la actividad le quita a la gente la razón de abrir Enkoras, y la app se
-vuelve un backend de un boletín. La campana adentro obliga a entrar, y entrando
-se ve todo lo demás.
-
-**Cómo aplicarlo.** No proponer conveniencias que compitan con el hábito de
-usar el producto. Antes de sugerir "avisarle al usuario por fuera", preguntarse
-si eso sustituye la visita en vez de provocarla. Y cuando pida una señal de
-estado, la escala default es la mínima que comunica: un candado antes que un
-letrero, un letrero antes que una pantalla.
-
----
-
-## #72 — "Es donde van a trabajar los usuarios" (31-ago-2026)
-
-**Contexto.** Construí el bloqueo por llave solo en el panel de Mi empresa y le
-pregunté si replicarlo en las demás pantallas. Su respuesta: *"pues es lo más
-importante, ya que en las diferentes pantallas es donde van a trabajar los
-usuarios, es obvio que estén los candados ahí también"*.
-
-**La señal.** Yo había priorizado por donde él VIO el problema (el panel). Él
-priorizó por **dónde pasa el trabajo real**: chat, licitaciones, ofertas. El
-panel se toca una vez al mes para editar el perfil; el chat y las licitaciones
-se tocan todos los días. Un bloqueo a medias no es "la mitad del valor": es
-inconsistencia, y la inconsistencia enseña a desconfiar de la señal — si el
-candado a veces está y a veces no, deja de significar algo.
-
-También rechazó implícitamente mi razón para pausar ("que valides el patrón
-antes de replicarlo"). Con un patrón simple y ya acordado, pedir validación
-intermedia es fricción, no prudencia. Distinto fue el maestro-detalle, donde sí
-hubo tres iteraciones — porque ahí lo discutido era el LAYOUT, no un ícono.
-
-**Cómo aplicarlo.** Al decidir dónde aplicar algo transversal, ordenar por
-frecuencia de uso real, no por dónde se reportó el bug. Y reservar las pausas
-de validación para lo que tiene forma discutible (layouts, jerarquías), no para
-repetir un patrón ya aprobado.
-
----
-
-## #73 — "No vamos a ir de la mano diciéndole al user qué debería hacer" (31-ago-2026)
-
-**Contexto.** Dejé abierto un pendiente ("¿las pujas necesitan reloj?") y lo
-defendí con un escenario: una operadora toma una licitación, se enferma, no
-avisa, y la licitación cierra desierta con 4 ofertas buenas. Javi lo desarmó:
-
-> *"Es un escenario ficticio muy tonto y muy alejado de la realidad. Para
-> empezar, alguien que tiene un trabajo real en la sociedad tiene un jefe y
-> alguien a quien reportar; si está enfermo lo reporta, y si no lo reporta los
-> jefes marcan, y si ven que no, toman las actividades por pura lógica de
-> responsabilidad. No es que estén jugando en una empresa de juguete o de niños
-> como para no saber que eso es imposible que pase en el mundo laboral — y si
-> pasa, habla muy mal de la persona como de la empresa. Además alguien con
-> coherencia y lógica entra y asigna la bid a otro user, para eso están los
-> jefes. Y los correos probablemente son de la empresa, así que tienen acceso.
-> No hay forma de que simplemente lo dejen. Nosotros no vamos a ir de la mano
-> diciéndole al user qué debería hacer, y para prevenir cosas como esa es que
-> creamos los roles principalmente."*
-
-**La señal — tres reglas en un solo mensaje:**
-
-1. **No diseñar contra disfunciones organizacionales.** Un empleado que
-   desaparece sin avisar es un problema de esa empresa, no un hueco del
-   producto. Compensarlo con software es asumir que el cliente es incompetente.
-2. **Si una feature YA resuelve el caso, no inventar una segunda.** Los roles y
-   el arrebato existen precisamente para esto. Yo había puesto el paso 5 de mi
-   propio ejemplo ("el jefe se la arrebata, dos clics") y aun así seguí
-   tratándolo como pendiente. Si la salida ya está en el ejemplo, no hay
-   pendiente.
-3. **No tutelar al usuario.** Enkoras da herramientas; no supervisa cómo la
-   empresa administra a su gente.
-
-**Cómo aplicarlo.** Antes de proponer una feature preventiva, preguntarse: ¿esto
-previene una falla del PRODUCTO, o una falla de la ORGANIZACIÓN que lo usa? Si
-es la segunda, no se construye. Y revisar la cola de pendientes con ese filtro:
-un "pendiente" cuyo remedio ya existe en el producto es ruido en la lista, y
-una lista con ruido deja de servir para priorizar (ver [[#70]]).
-
----
-
-## #74 — "No estás poniendo atención" (31-ago-2026)
-
-**Contexto.** Tres veces en la misma sesión le expliqué pendientes usando premisas
-que contradicen decisiones YA tomadas y YA escritas en la memoria y en los docs:
-
-1. Propuse "marcar las empresas de tu equipo en el selector" — imposible: la 066
-   (cuenta exclusiva) la construimos y validamos ese mismo día. Un dueño no puede
-   aceptar invitación y un miembro no puede crear empresas, así que el selector
-   nunca mezcla. Su corrección: *"ya habíamos definido ese tema hace rato en la
-   sesión, no estás poniendo atención"*.
-2. Añadió: tampoco puedes tener sillas en dos cuentas — **la silla es por CUENTA
-   y cubre todas las empresas de ese dueño con rol parejo**.
-3. Expliqué el bug de eliminar cuenta con "dos empresas, cada una con su Premium".
-   Su corrección: *"no hay múltiples suscripciones por empresa de una sola cuenta,
-   ya hablamos esto miles de veces: es UNA suscripción y esa cubre todas las
-   empresas que tenga registrada esa cuenta; el límite era 2 en Premium 1 y 4 en
-   Premium 2. Ya te lo dije muchas veces y lo has apuntado en las memorias."*
-
-**La señal.** No es que la información faltara: **estaba escrita, la escribí yo, y
-aun así expliqué desde el código sin cruzarlo con las decisiones**. Leer el código
-dice cómo está hoy; leer la memoria dice hacia dónde va y qué ya se decidió. Usar
-solo lo primero produce explicaciones técnicamente correctas y de producto falsas
-— y le hace gastar mensajes corrigiendo cosas que ya cerró.
-
-Efecto secundario grave: casi propongo invertir en arreglar el flujo de
-cancelación "por empresa" que **5.F va a tirar** cuando llegue el plan por cuenta.
-Trabajo que se iba a la basura.
-
-**Cómo aplicarlo.** Antes de explicar o proponer CUALQUIER pendiente: releer lo que
-la memoria ya dice de ese tema y preguntarse *"¿el código que estoy viendo es el
-modelo vigente o uno que ya está condenado por una decisión?"*. Si hay conflicto
-entre el código y la decisión, la decisión manda — y eso se dice en la explicación,
-no se omite.
-
----
-
-## #75 — "Un pendiente a la vez" (31-ago/1-sep-2026)
-
-**Contexto.** Al repasar la cola, Javi fijó el método: *"vamos de un pendiente a
-la vez y explícame el pendiente primero bien bien y con un ejemplo, y después
-qué haremos, o sea qué propones de solución, y vamos a ir de uno solo — cuando
-yo te diga pasamos al siguiente"*.
-
-**La señal.** No quiere recibir un lote de cambios ya hechos: quiere entender
-cada problema **antes** de que se construya. Es el mismo patrón con el que
-trabajó 5.A (bloque por bloque con su visto bueno en cada corte) y encaja con su
-dogfooding — si entiende el problema, detecta en la propuesta lo que a mí se me
-escapa. Pasó literalmente: al explicarle el reloj de las pujas desarmó la
-premisa entera, y al explicarle el bug de eliminar cuenta corrigió el modelo de
-suscripción que yo estaba usando mal.
-
-Efecto medido: con ese ciclo salieron cuatro bugs de producción que ninguna
-auditoría había encontrado.
-
-**Cómo aplicarlo.** Explicar con ejemplo concreto → proponer → esperar OK →
-construir → reportar y PARAR. Nunca encadenar dos pendientes.
-
----
-
-## #76 — "Ya sabes cómo soy con el backend" (1-sep-2026)
-
-**Contexto.** Al pedir el trabajo sobre el admin: *"básicamente la sección de
-admin es más que nada para mí el desarrollador, y aún hay muchas cosas que
-quiero cambiar de ahí, agregar, etc., pero sería bueno ya tener la base del
-design system, así que empecemos. Divídelo en bloques y hazlo correctamente, y
-por favor revisa que tanto el frontend y backend sean perfectos, ya sabes cómo
-soy"*.
-
-**La señal — tres cosas en un párrafo:**
-
-1. **Invirtió la prioridad que yo traía.** Yo iba a arreglar 9 sombras sueltas;
-   él pidió la BASE del sistema. Su razón: *"aún hay muchas cosas que quiero
-   agregar"* — sabe que va a construir encima, y una base torcida multiplica el
-   error en cada cosa nueva. Priorizó los cimientos sobre el síntoma visible.
-2. **Pidió bloques, no un lote.** Coherente con [[#75]].
-3. **"Perfecto" incluye el backend**, aunque el encargo pareciera de estilos. Y
-   ahí estaba lo grave: el listado de usuarios iba a mostrar correos vacíos con
-   más de 1000 usuarios, seis acciones fallaban en silencio, y la gráfica de
-   sectores nunca había pintado una barra. Nada de eso se veía "de estilos".
-
-**Cómo aplicarlo.** Cuando pida arreglar algo cosmético en una herramienta que
-piensa extender, revisar la BASE y el backend aunque no lo mencione — su
-"perfecto" nunca es solo lo que se ve. Y proponer los bloques antes de tocar
-código, con el hallazgo del backend por delante.
-
----
-
-## #77 — "Que refleje lo que realmente es hoy" (1-sep-2026)
-
-**Lo que pidió.** Al cerrar 5.B le pasé los pendientes que había dejado. El
-primero era qué hacer con la sección "Mis solicitudes" del panel de mi-empresa,
-ahora que Solicitudes se retiró. Su respuesta: *"pendiente 1 la sección de
-solicitudes, creo que se debería cambiar y reflejar lo que realmente es hoy,
-las bids y cotizaciones, no crees"*.
-
-**La señal.** Yo le había planteado la duda como binaria: ¿se borra la sección,
-o se queda? Él rechazó las dos y eligió la tercera, que era la correcta: **se
-transforma**. La sección no sobraba — lo que sobraba era su nombre y su
-contenido, que describían un producto que ya no existe.
-
-Es el mismo instinto de [[#74]]: mira el producto entero, no el pendiente
-aislado. Retirar una feature no es solo apagar sus rutas; es que **todo lo que
-la nombraba deje de mentir**. Un panel que sigue diciendo "Mis solicitudes"
-después de que las solicitudes dejaron de existir es una pantalla que miente,
-aunque técnicamente no esté rota.
-
-Y va en la dirección de su regla de siempre: la app se explica sola. Si el
-usuario publica bids, el panel dice bids.
-
-**Cómo aplicarlo.** Al retirar una feature, no preguntar "¿borro esto o lo
-dejo?" — hacer el inventario de TODO lo que la nombra (secciones, textos,
-iconos, navegación, tests) y proponer en qué se convierte cada cosa. Y cuando
-le presente una decisión, no encerrarla en dos opciones si existe una tercera
-mejor: él la va a encontrar.
+### 68. "Ignora el 3.7 por favor"
+- **Contexto:** caída de la IA del 31-ago. Le dije "Gemini está caído" y no lo aceptó como respuesta: *"¿en qué sentido, las API keys no responden o es por temas de modelos? Se supone que habíamos arreglado el tema de diferentes modelos y precisamente para que nunca hubiera una caída tenemos 5 API keys disponibles, analiza qué está pasando"*. A media investigación soltó la decisión: **"ignora el 3.7 por favor"**.
+- **Petición:** (1) distinguir *la llave no responde* de *el modelo no responde* antes de declarar nada caído; (2) sacar al 3.7 de la cascada sin más análisis — ya lo había mordido el 28-ago (el alias `latest` se movió solo a 3.7 y colgaba >25s).
+- **Razonamiento:** exigió exactamente la distinción que el código NO hacía: habíamos comprado redundancia (5 llaves) contra un riesgo (cuota) y la caída vino del otro eje (saturación del modelo) — redundancia en el eje equivocado es cero redundancia. Y un modelo con antecedentes no se re-litiga: se veta y se documenta el porqué.
+- **Término(s):** ¿respaldo contra qué exactamente? · redundancia por eje de falla · veto con memoria (lo que ya mordió, fuera).
+
+### 69. "Mismo maldito problema"
+- **Contexto:** dogfooding con dos cuentas abiertas. Probó "Cancelar edición" y el aviso *"Esta sección la está editando Javier Calixto"* no desapareció del otro lado: *"otra vez cosas de realtime"*. Segunda vez que caza el MISMO síntoma — la primera derivó en la migración 076.
+- **Petición:** que el realtime funcione de verdad, no que se vuelva a dar por cerrado.
+- **Razonamiento:** yo lo daba por resuelto con la 076 y él no — y tenía razón: la causa real estaba en el cliente (`payload.new ?? payload.old`; en un DELETE Supabase manda `new: {}`, objeto VACÍO que no es nullish, y el evento se tiraba a la basura). Dos lecciones: un síntoma que reaparece significa que la causa no estaba encontrada, no que falte otra capa encima; y la forma de un payload se verifica con una sonda contra producción, no con lógica. Su dogfooding con dos pantallas encontró lo que tres auditorías y una jornada E2E de 41 pasos no vieron: las pruebas no miran dos pantallas a la vez.
+- **Término(s):** síntoma repetido = reabrir la causa desde cero · sondear, no suponer · el dogfooding de dos pantallas.
+
+### 70. "Esto ya te lo he confirmado miles de veces"
+- **Contexto:** al repasar la cola de pendientes le listé como abierto el modelo de sillas 3/5/7. Corrección seca: *"esto ya te lo he confirmado miles de veces. Lo único que no he confirmado es los precios"*. De paso cerró tres cosas más de la misma lista.
+- **Petición:** (1) sillas 3/5/7 CONFIRMADO (base 3; Premium 1 = 5; Premium 2 = 7) — solo faltan los precios; (2) trial = 1 MES: *"un mes es suficiente, de igual lo podemos cambiar luego"*; (3) las empresas demo NO se borran: *"son ejemplos que uso para pruebas, hasta que yo no lo diga no las borramos"*; (4) SEO al final, otra vez.
+- **Razonamiento:** arrastrar como pendiente algo ya decidido le hace re-litigar y le quita autoridad a la lista entera — una cola que miente sobre su contenido deja de servir para priorizar. Y dos ítems estaban en jerga mía ("gating visual por switch") que no entendió: un pendiente que el dueño no puede leer no es un pendiente, es una nota mía.
+- **Término(s):** decisión cerrada → CONFIRMADO en memoria con fecha y frase · la cola en lenguaje de producto, no de implementación · decidir sin agonizar, con puerta abierta a los datos.
+
+### 71. "Para todo tienen que entrar a la app"
+- **Contexto:** le expliqué dos pendientes que estaban en jerga mía y los resolvió en direcciones opuestas.
+- **Petición:** (1) bloqueo por llave SÍ, pero discreto: *"bloquear los botones… algún mensaje que aparezca cuando le dé clic pero que no esté siempre… algo que no moleste pero que transmita que no tienes permiso… a veces menos es más, un candadito"*; (2) correo de notificaciones NO: *"la idea es que para todo tengan que entrar a la app, no que tengan que usar el correo, no tiene sentido. El correo será solo para problemas o cosas así, no para notificaciones"*.
+- **Razonamiento:** del candado, tres reglas en una frase: el aviso se gana con el intento (no vive en la pantalla), la marca permanente es mínima, y se puede entrar a MIRAR — esconder secciones deja a la persona sin contexto. Del correo: lo que propuse como conveniencia él lo leyó como FUGA — un correo que resume la actividad le quita a la gente la razón de abrir Enkoras; la campana adentro obliga a entrar, y entrando se ve todo lo demás.
+- **Término(s):** el aviso se gana con el clic · la escala mínima que comunica (candado < letrero < pantalla) · no construir conveniencias que compitan con el hábito de entrar.
+
+### 72. "Es donde van a trabajar los usuarios"
+- **Contexto:** construí el bloqueo por llave solo en el panel de Mi empresa y pregunté si replicarlo en las demás pantallas.
+- **Petición:** *"pues es lo más importante, ya que en las diferentes pantallas es donde van a trabajar los usuarios, es obvio que estén los candados ahí también"*.
+- **Razonamiento:** yo prioricé por donde él VIO el problema; él por donde pasa el trabajo real (chat y licitaciones — diario) contra el panel (una vez al mes). Un bloqueo a medias no es la mitad del valor: es inconsistencia, y la inconsistencia enseña a desconfiar de la señal. También rechazó mi pausa de "valida el patrón antes de replicar": con un patrón simple ya acordado, la validación intermedia es fricción — las pausas se reservan para lo que tiene forma discutible (layouts, jerarquías), no para repetir lo aprobado.
+- **Término(s):** priorizar por frecuencia de uso real, no por dónde se reportó · consistencia o la señal muere · pausas solo para lo discutible.
+
+### 73. "No vamos a ir de la mano diciéndole al user qué debería hacer"
+- **Contexto:** defendí el pendiente "¿las pujas necesitan reloj?" con un escenario: una operadora toma una licitación, se enferma, no avisa, y cierra desierta con 4 ofertas buenas.
+- **Petición:** matar el pendiente: *"es un escenario ficticio muy tonto y muy alejado de la realidad… alguien que tiene un trabajo real tiene un jefe y alguien a quien reportar… alguien con coherencia y lógica entra y asigna la bid a otro user, para eso están los jefes… no hay forma de que simplemente lo dejen. Nosotros no vamos a ir de la mano diciéndole al user qué debería hacer, y para prevenir cosas como esa es que creamos los roles principalmente"*.
+- **Razonamiento:** tres reglas en un mensaje: no diseñar contra disfunciones organizacionales (un empleado que desaparece es problema de esa empresa, no hueco del producto); si una feature YA resuelve el caso (roles + arrebato), no inventar una segunda — la salida estaba en mi propio ejemplo y aun así lo traté como pendiente; y no tutelar al usuario: Enkoras da herramientas, no supervisa cómo la empresa administra a su gente.
+- **Término(s):** ¿falla del producto o de la organización que lo usa? · el remedio ya existe = no hay pendiente · herramientas, no tutela.
+
+### 74. "No estás poniendo atención"
+- **Contexto:** tres veces en la misma sesión expliqué pendientes con premisas que contradicen decisiones YA tomadas y YA escritas: propuse "marcar empresas del equipo en el selector" (imposible: la cuenta exclusiva de la 066 la construimos ese mismo día) y expliqué el borrado de cuenta con "dos empresas, cada una con su Premium".
+- **Petición:** *"ya habíamos definido ese tema hace rato en la sesión, no estás poniendo atención"* · *"no hay múltiples suscripciones por empresa de una sola cuenta, ya hablamos esto miles de veces: es UNA suscripción y esa cubre todas las empresas que tenga registrada esa cuenta; el límite era 2 en Premium 1 y 4 en Premium 2. Ya te lo dije muchas veces y lo has apuntado en las memorias"* · y la silla es por CUENTA: cubre todas las empresas de ese dueño con rol parejo.
+- **Razonamiento:** la información no faltaba — estaba escrita, la escribí yo, y aun así expliqué desde el código sin cruzarlo con las decisiones. El código dice cómo está hoy; la memoria dice hacia dónde va y qué ya se decidió. Usar solo lo primero produce explicaciones técnicamente correctas y de producto FALSAS — y casi me pone a invertir en el flujo de cancelación "por empresa" que 5.F va a tirar.
+- **Término(s):** el código es el presente, la decisión es el rumbo — la decisión manda · releer la memoria del tema ANTES de explicar el pendiente · trabajo sobre modelo condenado = trabajo a la basura.
+
+### 75. "Un pendiente a la vez"
+- **Contexto:** al repasar la cola fijó el método de trabajo.
+- **Petición:** *"vamos de un pendiente a la vez y explícame el pendiente primero bien bien y con un ejemplo, y después qué haremos, o sea qué propones de solución, y vamos a ir de uno solo — cuando yo te diga pasamos al siguiente"*.
+- **Razonamiento:** no quiere un lote de cambios hechos: quiere entender cada problema ANTES de que se construya, porque entendiendo detecta en la propuesta lo que a mí se me escapa — pasó literalmente con el reloj de las pujas (desarmó la premisa entera) y con eliminar cuenta (corrigió mi modelo de suscripción). Con ese ciclo salieron cuatro bugs de producción que ninguna auditoría había encontrado.
+- **Término(s):** explicar con ejemplo → proponer → OK → construir → reportar y PARAR · nunca encadenar dos pendientes · su comprensión es parte del control de calidad.
+
+### 76. "Ya sabes cómo soy con el backend"
+- **Contexto:** encargo del design system del admin: *"la sección de admin es más que nada para mí el desarrollador, y aún hay muchas cosas que quiero cambiar de ahí, agregar, etc., pero sería bueno ya tener la base del design system, así que empecemos. Divídelo en bloques y hazlo correctamente, y por favor revisa que tanto el frontend y backend sean perfectos, ya sabes cómo soy"*.
+- **Petición:** (1) la BASE del sistema antes que las 9 sombras sueltas que yo iba a arreglar; (2) por bloques, no en lote; (3) "perfecto" incluye el backend aunque el encargo parezca de estilos.
+- **Razonamiento:** sabe que va a construir encima y una base torcida multiplica el error en cada cosa nueva — cimientos antes que síntomas. Y su instinto del backend tenía razón: el listado de usuarios iba a mentir con +1000 usuarios, seis acciones fallaban en silencio y la gráfica de sectores nunca había pintado una barra — nada de eso "se veía de estilos".
+- **Término(s):** la base antes que el síntoma cuando piensa extender · su "perfecto" nunca es solo lo que se ve · bloques con el hallazgo de backend por delante.
+
+### 77. "Que refleje lo que realmente es hoy"
+- **Contexto:** al cerrar 5.B le pasé los pendientes; el primero era qué hacer con la sección "Mis solicitudes" del panel ahora que Solicitudes se retiró. Yo lo planteé binario: ¿se borra o se queda?
+- **Petición:** *"creo que se debería cambiar y reflejar lo que realmente es hoy, las bids y cotizaciones, ¿no crees?"*.
+- **Razonamiento:** rechazó mis dos opciones y eligió la tercera, que era la correcta: se TRANSFORMA. La sección no sobraba — sobraban su nombre y su contenido, que describían un producto que ya no existe. Retirar una feature no es apagar sus rutas: es que todo lo que la nombraba deje de mentir. Mismo instinto de la 74: mira el producto entero, no el pendiente aislado.
+- **Término(s):** retirar = inventariar TODO lo que la nombra y decidir en qué se convierte cada cosa · no encerrar sus decisiones en dos opciones: la tercera mejor existe y la va a encontrar · la app se explica sola.
+
+### 78. "Se quedan la original y las 2 correcciones — y eso es muy grave"
+- **Contexto:** dogfooding de 5.B recién construido, con sus dos cuentas. Corrigió su cotización dos veces y miró el tablero del lado convocante: las TRES versiones apiladas. Minutos después, la generalización: *"lo mismo pasa en las bids live"*.
+- **Petición:** *"al corregir una cotización, en vez de que se redibuje la original crea otra, y así al final si usas las 2 correcciones se quedan la original y las 2 correcciones — y eso es muy grave"* — y que en vivo sea igual: una sola tarjeta por proveedor.
+- **Razonamiento:** vio dos cosas que yo no: la FUGA (la convocante veía precios que el proveedor ya retiró — munición para presionarlo, cuando el trato del sobre cerrado es "mandas un número y ese es el que compite") y que el arreglo es del COMPONENTE, no del síntoma — extendió la regla a los dos modos sin que nadie se lo pidiera. Encima, era una decisión que él YA había tomado ("sobre historial de correcciones, solo la vigente") y que yo no implementé en el bloque C: la cazó usando el producto, no leyendo mis reportes.
+- **Término(s):** una fila por proveedor · corregir REEMPLAZA, no acumula · el precio retirado no se enseña · el dogfooding caza los requisitos perdidos.
+
+### 79. "Para mí bids es eso: live y quotes"
+- **Contexto:** tras la tanda de arreglos de 5.B pidió barrer todos los datos de prueba de la feature.
+- **Petición:** *"elimina todas las bids de pruebas — las ganadas, las cerradas, canceladas, etc. — junto con sus archivos que tengan attached o cotizaciones, y lo mismo con las quotes o requests anteriores… también las notificaciones y etc. que haya quedado guardado de esa feature, para dejar todo limpio"*. Y fijó el vocabulario: *"cuando hablo de la feature de bids me refiero a live y quotes"*.
+- **Razonamiento:** antes de probar en serio quiere el terreno en CERO — los datos demo sucios esconden bugs (el "History 6" fantasma nació de ahí) y contaminan el dogfooding. Y "limpiar" para él no es borrar filas: son también los archivos de Storage y las notificaciones — todo lo que la feature dejó regado. Fijar el término compartido ("bids" = la feature entera, sus dos modos) evita otra ronda de malentendidos de vocabulario.
+- **Término(s):** vocabulario compartido antes que nada · terreno limpio para el dogfooding · limpiar = filas + archivos + notificaciones, no solo la tabla.
+
+### 80. El diferenciador que no se debe perder
+- **Contexto:** corrigió su cotización cambiando solo el precio; la corrección llegó SIN el diferenciador que había escrito en el envío anterior.
+- **Petición:** *"tal vez el user solo quiere cambiar el precio y dejar su diferenciador; estaría bien que apareciera precargado por si lo quiere modificar, y si no lo modifica pues que se publique con el mismo que ya tenía. No sé si este mismo problema también pasa en las bids a la hora de mejorar oferta, pero deberíamos checarlo y corregirlo también"*.
+- **Razonamiento:** anticipó el error silencioso: un campo marcado "opcional" que en realidad BORRA lo anterior si se deja vacío — porque cada envío reemplaza la oferta entera y el usuario no tiene forma de saberlo. Editar debe arrancar de lo vigente, nunca de cero. Y otra vez el instinto de generalizar: "¿pasa también en live?" — sí: era el mismo componente. Piensa en el gemelo de cada bug sin saber cómo está construido por dentro.
+- **Término(s):** editar parte de lo VIGENTE · un campo vacío no significa "igual que antes" · buscar el gemelo de cada bug (mismo componente, otro modo).
+
+### 81. La campana sabe quién eres
+- **Contexto:** con la cuenta convocante (golfo) tocó la notificación "te ofertaron" y aterrizó en la pestaña Invitations — como si lo hubieran invitado a ofertar en su propia licitación — con el selector marcando Live sobre una cotización.
+- **Petición:** *"me lleva a invitations, lo cual no tiene sentido — ¿por qué me enviaría a invitations si yo soy quien creó la licitación?… otra cosa: me lleva a la tab de live en vez de la de quotes… necesito que vuelvas a analizar por completo la feature de bids, las live y quotes, porque hay muchos bugs"*.
+- **Razonamiento:** dos señales: la notificación debe aterrizar según TU RELACIÓN con la cosa (quien convocó llega por "te ofertaron" → a Mías; el invitado → a Para ti) y en la pestaña del modo real — la pantalla no puede contarse dos historias. Y ante tres síntomas no pidió tres parches: pidió el análisis COMPLETO de la feature — olfato de causa común, y la había (la URL sin normalizar).
+- **Término(s):** aterrizar según el rol, no según un default · la URL no miente (selector, pestaña y sala cuentan la misma historia) · varios síntomas juntos = buscar la causa común, no parchar de a uno.
+
+### 82. La sala de espera también es producto
+- **Contexto:** al ir a publicar su segunda bid de prueba topó con el cronómetro del ritmo de publicación (los 5 minutos entre una y otra).
+- **Petición:** *"este anuncio sale muy pegado arriba, está mal en UI/UX, aparte le falta diseño"*.
+- **Razonamiento:** una pantalla de espera carga más fricción emocional que casi cualquier otra — te frenó cuando venías a HACER algo — y justo por eso merece diseño: el centro real de la pantalla, un anillo que dice cuánto falta sin leer nada, y una salida útil (ver tus publicadas) para que la espera no sea una celda. Coherente con su doctrina: las microinteracciones y las pantallas "menores" son señal de primera clase, no sobras.
+- **Término(s):** las pantallas "menores" no existen · la espera se diseña (progreso visible + salida útil) · el reloj sin porqué es castigo; con porqué es ritmo.
