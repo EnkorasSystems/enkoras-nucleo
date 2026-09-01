@@ -334,3 +334,96 @@
 - **Petición:** sillas fijas por plan (2 de por vida: Dueño y Admin; el resto sin etiqueta, el dueño las define) matando el $/asiento del artifact por precios fijos ("esto no es Plaky — muchos users no es el caso aquí"); claim de chats ("el que lo agarre primero, el sistema se lo asigna — pero lo puede soltar o transferir"); chats de bids nacen asignados a la creadora de la bid; candado de edición con reloj ("le das editar y se te asigna hasta que guardes, con cambios en realtime sin refresh"); y el keep-alive de soporte: "como cuando te dicen 'permítame tantito' y al minuto 'sigo con usted' — que conserve el chat mientras detecte movimiento y le avise al operador antes de soltarlo".
 - **Razonamiento:** diseñó concurrencia, asignación y locks sin saber sus nombres técnicos (claim & lease, pessimistic locking, heartbeat) — puro razonamiento desde el mostrador de una empresa real y las apps de soporte que ha usado como cliente. Y detectó él solo la race condition del chat compartido antes de que existiera el código.
 - **Término(s):** claim & lease diseñado por intuición · el reloj como válvula anti-secuestro · la experiencia de CLIENTE de otras apps como material de diseño.
+
+### 57. "Cuando terminemos, explícamelo con un ejemplo"
+- **Contexto:** maratón de construcción de 5.A (Bloque C en curso); los bloques técnicos se apilaban uno tras otro.
+- **Petición:** "no estoy entendiendo bien los bloques — cuando terminemos necesito explicación práctica de cómo funcionaría, con un ejemplo".
+- **Razonamiento:** no frenó el maratón (la construcción sigue), pero fijó el criterio de cierre: el trabajo no está terminado hasta que se pueda CONTAR como historia — una empresa real, una persona real, qué pasa cuando llega un mensaje. Es la misma vara con la que evalúa UI: si no se entiende desde el mostrador, no está listo.
+- **Término(s):** el ejemplo vivido como criterio de aceptación · separar "constrúyelo ya" de "explícamelo después" — dos entregables, no uno.
+
+### 58. La simetría de la propiedad: "¿y cuando la licitación la hacemos nosotros?"
+- **Contexto:** recién entregada la explicación completa de 5.A, con "la puja con dueña" (lado proveedor).
+- **Petición:** "¿también está lo contrario? cuando nosotros como empresa hacemos las licitaciones — solo el que la hace la puede controlar, a menos que la transfiera el owner a otro compañero, ¿no?"
+- **Razonamiento:** detectó él solo el hueco de simetría del modelo: el claim protegía al equipo OFERENTE (dos no pujan a la vez) pero el lado CONVOCANTE seguía abierto por llaves — dos compañeros con 'ofertar' podrían mandar contraofertas contradictorias al mismo proveedor. La misma race condition que él predijo para los chats, aplicada al otro lado de la mesa.
+- **Término(s):** simetría de propiedad como olfato de producto · el modelo mental "cada pieza de trabajo tiene UNA dueña" aplicado consistentemente antes que el código.
+
+### 59. La liga sin contexto: "no hay correlación o concordancia"
+- **Contexto:** dogfooding de la invitación al equipo (5.A·C) recién construida — mandó la liga por chat y la abrió sin sesión.
+- **Petición:** la liga compartida se ve como texto plano, no como link; y al abrirla sin sesión aparece el login genérico "sin correlación o concordancia" — "debería ser una pantalla diferente, con textos dando más contexto de qué es esa liga; y te debería poner el iniciar sesión Y su contraparte el registrar — porque si ya tengo cuenta de nada sirve [el registro], solo si no tengo cuenta creada; ahora bien, también sería válido".
+- **Razonamiento:** detectó en el primer uso real la ruptura del hilo narrativo del invitado (el momento de mayor fricción del funnel de equipo: un usuario NUEVO que jamás ha visto Enkoras) y diseñó la solución completa de pasada: landing con contexto + ambos caminos según tengas cuenta o no.
+- **Término(s):** la continuidad del contexto como requisito del funnel · el invitado es un usuario frío, no uno logueado · dogfooding inmediato post-feature.
+- **Corrección de rumbo (mismo día):** la primera implementación fue una tarjeta intermedia propia ("sosa") — Javi la rechazó y aclaró la intención original: "por lo general los links de invitación te redirigen a las pantallas de login o de sign up — eso es a lo que me refería, que fuera en la pantalla de login, no aquí dentro". El contexto vive DENTRO del auth (banner en login/registro), no en una pantalla extra. Lección: seguir las convenciones que el usuario ya conoce de otras apps antes que inventar pasos intermedios.
+
+### 60. La cuenta exclusiva: "dueña O miembro, nunca las dos"
+- **Contexto:** dogfooding del 5.A con dos cuentas reales — vio su cuenta invitada (con silla) mostrando TAMBIÉN su propia sección "Tu equipo" con botones de invitar.
+- **Petición:** (1) para invitar, el dueño debe tener su empresa ya creada ("con eso ya puede enviar solicitudes"); (2) la cuenta invitada asume el rol de la invitación y ya no debe poder crear su propia empresa; (3) una cuenta con silla (admin/operador) no debe poder crear su propio team — "sería una ramita infinita de operadores o admins invitando y ellos invitando... no le veo sentido, además complicaría mucho las cosas"; (4) al salirte del team, "tu cuenta vuelve a ser normal, sin rol más que el rol owner".
+- **Razonamiento:** cerró él solo la recursión del grafo de equipos (árboles infinitos de sub-equipos) con una regla de exclusividad simple y reversible — el estado de la cuenta es un interruptor (dueña ⟷ miembro) que se restablece al salir. La complejidad no se administra: se PROHÍBE por diseño.
+- **Término(s):** exclusividad de rol por cuenta · cortar la recursión en el modelo, no en la UI · reversibilidad como válvula ("te sales y vuelves a ser normal").
+
+### 61. Una silla a la vez + el navbar que no sabe quién eres
+- **Contexto:** cierre de la cuenta exclusiva (066); yo dejé abierta la puerta a que una cuenta-miembro tuviera sillas en DOS equipos distintos.
+- **Petición:** (1) "no — que una cuenta sea miembro de dos equipos es demasiada complejidad y no es necesario para algo como esto"; (2) en una cuenta admin/operador el botón naranja del navbar "Publica tu empresa" es ilógico — "deberíamos cambiarlo por otro botón que lleve a las configuraciones de la empresa, en teoría".
+- **Razonamiento:** recorta complejidad especulativa sin caso de uso real (YAGNI aplicado por instinto) y exige que el CTA principal refleje el ESTADO de la cuenta: al miembro no se le vende registrar empresa — se le abre la puerta del panel donde trabaja.
+- **Término(s):** una silla a la vez · el CTA como espejo del estado de la cuenta · complejidad solo con caso de uso.
+- **Adición (mismo hilo):** "Planes" en el navbar/panel también es innecesario y crearía fricción para una cuenta operador/admin — el plan es del Dueño (no delegable), así que a la cuenta miembro ni se le muestra.
+
+### 62. "Pum, de repente ya ve que se cambió" — el dato viaja, no solo el candado
+- **Contexto:** probó el candado de edición con dos pantallas (owner + operador en Ubicación): el bloqueo y el badge "la está editando X" llegaron en vivo, pero al GUARDAR el operador, el owner tuvo que refrescar para ver la ciudad nueva.
+- **Petición:** "dijimos que es una de las cosas importantes, que los cambios se vean — que tal si le pidieron cambiar la dirección, va y lo hace, y la otra al entrar la ve bloqueada y se queda ahí viendo, y pum, de repente ya ve que se cambió: dice 'ah ok, ya la cambió mi compañera' y listo".
+- **Razonamiento:** define el criterio de terminado del realtime con una ESCENA, no con un requisito técnico: el espectador congelado es un observador legítimo y el sistema le debe la recompensa de ver aterrizar el cambio. El candado sin el dato es media promesa.
+- **Término(s):** el dato viaja con el candado · el espectador congelado como usuario de primera clase · escenas como specs.
+
+### 63. "Javier Calixto editó: Ciudad" — el cambio con autor y campo
+- **Contexto:** recién estrenado el panel en vivo (067) — el dato ya aterriza solo en la pantalla del espectador.
+- **Petición:** "estaría bien que hubiera algo que dijera ahí mismo, si yo estoy en la misma pantalla, que el que está editando —tipo 'Javier Calixto editó campo: tal'— obviamente solo se mostrará si yo estoy en esa sección mientras la otra está editando".
+- **Razonamiento:** cierra el ciclo de la colaboración visible: no basta que el dato cambie — el espectador necesita la ATRIBUCIÓN (quién) y el ALCANCE (qué campo) para confiar en lo que acaba de ver moverse solo. Es el patrón de Google Docs aterrizado al mostrador.
+- **Término(s):** atribución del cambio en vivo · el campo como unidad de narración · feedback visual como confianza.
+
+### 64. El freno por persona + el cronómetro que explica, y las sillas 3/5/7
+- **Contexto:** le expliqué (con la escena del lunes de Luis) que el rate limit de 10 licitaciones/hora se reparte entre todo el equipo porque cuenta por EMPRESA.
+- **Petición:** (1) "no sabemos cuántas licitaciones live u offline puede hacer una empresa — démosle margen: **10 por persona**"; (2) **ritmo de 5 minutos** entre una y otra, y **que salga un cronómetro contando los 5 minutos** hasta la siguiente, "y explicarle al user el por qué de eso"; (3) corrección del modelo de sillas: la base son **3** (owner = silla jefe + admin + operador) y los planes SUMAN extras: **premium 1 → 3+2 = 5**, **premium 2 → 3+4 = 7**.
+- **Razonamiento:** convierte un límite defensivo (invisible hasta que muerde) en una regla de producto VISIBLE y explicada — el cronómetro no es un castigo, es ritmo con razón. Y ajusta el modelo de sillas hacia arriba al ver el uso real: la base ya no es el techo, es el piso sobre el que el plan suma.
+- **Término(s):** el límite como ritmo explicado, no como castigo silencioso · cronómetro con porqué · sillas base + extras por plan (3/5/7, revisa el 4/6 anterior).
+
+### 65. "No trabajamos al mínimo ni con resultados mediocres"
+- **Contexto:** con el 5.A completo y ya auditado dos veces, pidió una tercera revisión — pero con otra vara.
+- **Petición:** "haz una nueva auditoría de toda la feature multiusuario porque esta es una de las features más pesadas, y no podemos entregar algo decente, ni más o menos, ni con fallas, sino algo EXCELENTE. No trabajamos al mínimo ni con resultados mediocres. Es muy importante la experiencia del user ya que de eso depende que regrese siempre y nos use y catalogue como una buena herramienta."
+- **Razonamiento:** cambió el criterio de aceptación de "¿funciona?" a "¿lo recomendarían?" — y lo ató explícitamente a la retención. Es la diferencia entre auditar código y auditar PRODUCTO: la revisión resultante encontró cosas que ningún test detecta (el arrebato silencioso, el candado que bloquea a quien solo mira, la invitación artesanal, el switch de 20px imposible con el pulgar en una bodega).
+- **Término(s):** la excelencia como criterio de entrega, no como lujo · la experiencia como motor de retención · auditar producto ≠ auditar código.
+
+### 66. "Quiero ver el link", el correo, y las sillas en su propia columna
+- **Contexto:** de los tres huecos de excelencia que le presenté, eligió dos (invitar por correo y presencia en línea) y descartó la bitácora de actividad.
+- **Petición:** (1) las dos features; (2) reclamó que "el plan B del portapapeles" no se veía — yo lo había hecho invisible (solo aparecía al fallar) cuando lo que él quería era **ver el link siempre**: "¿a qué te referías, que iba a aparecer el link ahí mismo o cómo?"; (3) rediseño de /equipo en dos columnas: los integrantes en una, y **las sillas libres con su panel de invitar en la otra** ("que esa columna sea específica para las sillas; una vez agregado ya aparece en la otra card").
+- **Razonamiento:** descartó la bitácora sin dudar (no la necesita = no se construye), y en lo del link corrigió una decisión mía de ingeniero: un fallback invisible no es una función, es una red que nadie ve. Ver lo que vas a mandar es parte de confiar. El layout de dos columnas separa el ESTADO (quién está) de la ACCIÓN (llenar sillas) — cada card con un solo trabajo.
+- **Término(s):** el fallback invisible no cuenta como función · separar estado de acción por columna · descartar features sin ceremonia.
+
+### 67. El panel maestro-detalle, el candado que se suelta y la llave que no debe existir
+- **Contexto:** dogfooding intensivo de /equipo con dos cuentas abiertas.
+- **Peticiones en cadena:** (1) rechazó dos layouts míos ("eso es horrendo, ¿por qué limitas el contenedor cuando tienes espacio libre?" y luego "quedó peor") hasta proponer él la solución correcta: **maestro-detalle** — lista a la izquierda, panel de lo elegido a la derecha, con el botón de silla libre **debajo de la card del dueño**; (2) 40/60 en vez de 50/50; (3) "el chip de administrar equipo nunca debe estar presente en el rol operador"; (4) al ver un `confirm()` del navegador: "sabes que eso es de las peores prácticas UI/UX"; (5) el candado: "escribo una letra, me arrepiento y la borro, pero el otro sigue viéndome editando — debería haber un botón de cancelar que deje todo como estaba y le avise al otro"; (6) "aunque le doy cancelar, en la otra cuenta sigue apareciendo… no hay realtime para eso, tengo que hacer refresh".
+- **Razonamiento:** su ojo de layout es más rápido que mi razonamiento: propuso el patrón que la app ya usa en Mensajes y Licitaciones antes de que yo lo viera. Y sus dos observaciones de comportamiento destaparon un bug de infraestructura real (los DELETE no viajaban por realtime sin REPLICA IDENTITY FULL) que ningún test ni auditoría había encontrado.
+- **Término(s):** dogfooding con dos cuentas como técnica de QA · rechazar dos veces hasta que el diseño sea el correcto · el usuario detectando un bug de replicación desde el síntoma visual.
+
+---
+
+## #68 — "Ignora el 3.7 por favor" (31-ago-2026)
+
+**Contexto.** Javi cuestionó que yo dijera "Gemini está caído": *"¿en qué sentido, las
+API keys no responden o es por temas de modelos? Se supone que habíamos arreglado el
+tema de diferentes modelos y precisamente para que nunca hubiera una caída tenemos 5
+API keys disponibles, analiza qué está pasando"*. A media investigación soltó la
+decisión: **"ignora el 3.7 por favor"**.
+
+**La señal.** Dos cosas, y las dos son product sense duro:
+
+1. **No aceptó "está caído" como respuesta.** Exigió la distinción entre *la llave no
+   responde* y *el modelo no responde* — que es exactamente la distinción que el código
+   NO hacía. Tenía razón en desconfiar: habíamos comprado redundancia (5 llaves) para un
+   riesgo (cuota) y la caída vino del otro (saturación del modelo). Redundancia en el
+   eje equivocado es cero redundancia.
+2. **Vetó 3.7 sin pedir análisis.** Ya lo había mordido el 28-ago (el alias
+   `gemini-flash-latest` se movió solo a 3.7 y colgaba >25s). No quiso volver a
+   discutirlo: modelo con antecedentes, fuera de la lista. Memoria de producto.
+
+**Cómo aplicarlo.** Cuando un sistema tenga respaldo, preguntarse *¿respaldo contra qué
+exactamente?* y verificar que el modo de falla real esté cubierto por ese eje. Y cuando
+Javi veta algo que ya falló antes, no se re-litiga: se saca y se documenta por qué.
