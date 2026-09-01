@@ -631,3 +631,54 @@ la memoria ya dice de ese tema y preguntarse *"¿el código que estoy viendo es 
 modelo vigente o uno que ya está condenado por una decisión?"*. Si hay conflicto
 entre el código y la decisión, la decisión manda — y eso se dice en la explicación,
 no se omite.
+
+---
+
+## #75 — "Un pendiente a la vez" (31-ago/1-sep-2026)
+
+**Contexto.** Al repasar la cola, Javi fijó el método: *"vamos de un pendiente a
+la vez y explícame el pendiente primero bien bien y con un ejemplo, y después
+qué haremos, o sea qué propones de solución, y vamos a ir de uno solo — cuando
+yo te diga pasamos al siguiente"*.
+
+**La señal.** No quiere recibir un lote de cambios ya hechos: quiere entender
+cada problema **antes** de que se construya. Es el mismo patrón con el que
+trabajó 5.A (bloque por bloque con su visto bueno en cada corte) y encaja con su
+dogfooding — si entiende el problema, detecta en la propuesta lo que a mí se me
+escapa. Pasó literalmente: al explicarle el reloj de las pujas desarmó la
+premisa entera, y al explicarle el bug de eliminar cuenta corrigió el modelo de
+suscripción que yo estaba usando mal.
+
+Efecto medido: con ese ciclo salieron cuatro bugs de producción que ninguna
+auditoría había encontrado.
+
+**Cómo aplicarlo.** Explicar con ejemplo concreto → proponer → esperar OK →
+construir → reportar y PARAR. Nunca encadenar dos pendientes.
+
+---
+
+## #76 — "Ya sabes cómo soy con el backend" (1-sep-2026)
+
+**Contexto.** Al pedir el trabajo sobre el admin: *"básicamente la sección de
+admin es más que nada para mí el desarrollador, y aún hay muchas cosas que
+quiero cambiar de ahí, agregar, etc., pero sería bueno ya tener la base del
+design system, así que empecemos. Divídelo en bloques y hazlo correctamente, y
+por favor revisa que tanto el frontend y backend sean perfectos, ya sabes cómo
+soy"*.
+
+**La señal — tres cosas en un párrafo:**
+
+1. **Invirtió la prioridad que yo traía.** Yo iba a arreglar 9 sombras sueltas;
+   él pidió la BASE del sistema. Su razón: *"aún hay muchas cosas que quiero
+   agregar"* — sabe que va a construir encima, y una base torcida multiplica el
+   error en cada cosa nueva. Priorizó los cimientos sobre el síntoma visible.
+2. **Pidió bloques, no un lote.** Coherente con [[#75]].
+3. **"Perfecto" incluye el backend**, aunque el encargo pareciera de estilos. Y
+   ahí estaba lo grave: el listado de usuarios iba a mostrar correos vacíos con
+   más de 1000 usuarios, seis acciones fallaban en silencio, y la gráfica de
+   sectores nunca había pintado una barra. Nada de eso se veía "de estilos".
+
+**Cómo aplicarlo.** Cuando pida arreglar algo cosmético en una herramienta que
+piensa extender, revisar la BASE y el backend aunque no lo mencione — su
+"perfecto" nunca es solo lo que se ve. Y proponer los bloques antes de tocar
+código, con el hallazgo del backend por delante.
