@@ -427,3 +427,131 @@ decisión: **"ignora el 3.7 por favor"**.
 **Cómo aplicarlo.** Cuando un sistema tenga respaldo, preguntarse *¿respaldo contra qué
 exactamente?* y verificar que el modo de falla real esté cubierto por ese eje. Y cuando
 Javi veta algo que ya falló antes, no se re-litiga: se saca y se documenta por qué.
+
+---
+
+## #69 — "Mismo maldito problema" (31-ago-2026)
+
+**Contexto.** Javi probó "Cancelar edición" con dos cuentas abiertas y el aviso
+*"Esta sección la está editando Javier Calixto"* NO desapareció del otro lado:
+*"otra vez cosas de realtime"*. Es la SEGUNDA vez que caza el mismo síntoma —
+la primera derivó en la migración 076 (REPLICA IDENTITY FULL).
+
+**La señal.** Yo había dado el bug por cerrado con 076 y él no. Tenía razón: la
+migración era necesaria pero no suficiente. La causa real estaba en el cliente:
+
+```js
+const fila = (payload.new ?? payload.old)   // ← el bug
+```
+
+En un DELETE, Supabase manda `new: {}` — un objeto **vacío**, que NO es nullish.
+El `??` se quedaba con el `{}`, el campo discriminante salía `undefined` y el
+guard descartaba el evento ANTES de llegar a la rama del borrado. O sea: el dato
+del DELETE sí viajaba (gracias a 076) y el cliente lo tiraba a la basura.
+
+Estaba en dos lados: candados de edición y claims de chat.
+
+**Cómo aplicarlo.** Dos lecciones:
+
+1. **Un síntoma que reaparece significa que la causa no estaba encontrada, no
+   que haga falta otra capa encima.** La primera vez atendí la capa de BD porque
+   era la sospechosa plausible; no verifiqué el cliente. Cuando Javi repite un
+   reporte, el trabajo es reabrir la causa desde cero, no reforzar la hipótesis.
+2. **Verificar con una sonda, no con lógica.** El arreglo salió de imprimir el
+   payload REAL de un DELETE contra la base de producción. Adivinar la forma de
+   un payload es exactamente el tipo de suposición que costó las dos rondas.
+
+Su dogfooding con dos cuentas abiertas encontró lo que tres rondas de auditoría
+y una jornada E2E de 41 pasos no vieron: las pruebas automatizadas no miran DOS
+pantallas al mismo tiempo.
+
+---
+
+## #70 — "Esto ya te lo he confirmado miles de veces" (31-ago-2026)
+
+**Contexto.** Al repasar la cola de pendientes le listé como abierto el modelo
+de sillas 3/5/7. Corrección seca: *"esto ya te lo he confirmado miles de veces.
+Lo único que no he confirmado es los precios"*. Y de paso cerró y corrigió tres
+cosas más de la misma lista.
+
+**Decisiones que quedaron cerradas aquí:**
+- **Sillas 3/5/7: CONFIRMADO** (base 3 = dueño+admin+operador; Premium 1 = 5;
+  Premium 2 = 7). Lo único abierto de ese tema son los PRECIOS.
+- **Trial = 1 MES**, no 1.5 ni 2: *"un mes es suficiente, de igual lo podemos
+  cambiar luego"*. Decisión tomada sin agonizarla, con la puerta abierta a
+  ajustarla con datos — su patrón de siempre.
+- **Las empresas demo NO se borran**: *"son ejemplos que uso para pruebas, hasta
+  que yo no lo diga no las borramos"*. Deja de ser un pendiente y pasa a ser una
+  instrucción de NO TOCAR.
+- SEO: al final, otra vez confirmado.
+
+**La señal.** Arrastrar como "pendiente" algo ya decidido no es inocuo: le hace
+re-litigar decisiones cerradas y le quita autoridad a la lista completa. Una
+cola de pendientes que miente sobre su propio contenido deja de servir para
+priorizar. Además dos ítems estaban escritos en jerga mía ("gating visual por
+switch", "resto del correo transaccional") y no los entendió — un pendiente que
+el dueño del producto no puede leer tampoco es un pendiente, es una nota mía.
+
+**Cómo aplicarlo.** Al cerrar cada tema, mover la decisión a CONFIRMADO en la
+memoria en el momento, con la fecha y su frase. Y escribir la cola en lenguaje
+de producto, no de implementación: qué ve o no ve el usuario, no cómo se llama
+la técnica.
+
+---
+
+## #71 — "Para todo tienen que entrar a la app" (31-ago-2026)
+
+**Contexto.** Le expliqué dos pendientes que estaban en jerga mía. Resolvió los
+dos en direcciones opuestas, y ahí está lo interesante.
+
+**1. El bloqueo por llave: SÍ, pero discreto.** Su dirección textual:
+*"bloquear los botones… algún mensaje que aparezca cuando le dé clic pero que
+no esté siempre… algo que no moleste pero que transmita que no tienes permiso…
+a veces menos es más, algo simple puede ser lo mejor, un candadito"*.
+
+Tres reglas de diseño en una frase: (a) el aviso NO vive en la pantalla, se
+gana con el intento; (b) la marca permanente es mínima — un candado, no un
+banner; (c) se puede ENTRAR a mirar, solo no editar. Nada de esconder secciones:
+esconder deja a la persona sin contexto de lo que existe.
+
+**2. El correo de notificaciones: NO.** *"La idea es que para todo tengan que
+entrar a la app, no que tengan que usar el correo, no tiene sentido. El correo
+será solo para problemas o cosas así, no para notificaciones."*
+
+Yo lo había propuesto como una mejora obvia (avisar por correo lo que hoy solo
+se ve entrando). Él lo leyó como lo que también es: **una fuga**. Un correo que
+resume la actividad le quita a la gente la razón de abrir Enkoras, y la app se
+vuelve un backend de un boletín. La campana adentro obliga a entrar, y entrando
+se ve todo lo demás.
+
+**Cómo aplicarlo.** No proponer conveniencias que compitan con el hábito de
+usar el producto. Antes de sugerir "avisarle al usuario por fuera", preguntarse
+si eso sustituye la visita en vez de provocarla. Y cuando pida una señal de
+estado, la escala default es la mínima que comunica: un candado antes que un
+letrero, un letrero antes que una pantalla.
+
+---
+
+## #72 — "Es donde van a trabajar los usuarios" (31-ago-2026)
+
+**Contexto.** Construí el bloqueo por llave solo en el panel de Mi empresa y le
+pregunté si replicarlo en las demás pantallas. Su respuesta: *"pues es lo más
+importante, ya que en las diferentes pantallas es donde van a trabajar los
+usuarios, es obvio que estén los candados ahí también"*.
+
+**La señal.** Yo había priorizado por donde él VIO el problema (el panel). Él
+priorizó por **dónde pasa el trabajo real**: chat, licitaciones, ofertas. El
+panel se toca una vez al mes para editar el perfil; el chat y las licitaciones
+se tocan todos los días. Un bloqueo a medias no es "la mitad del valor": es
+inconsistencia, y la inconsistencia enseña a desconfiar de la señal — si el
+candado a veces está y a veces no, deja de significar algo.
+
+También rechazó implícitamente mi razón para pausar ("que valides el patrón
+antes de replicarlo"). Con un patrón simple y ya acordado, pedir validación
+intermedia es fricción, no prudencia. Distinto fue el maestro-detalle, donde sí
+hubo tres iteraciones — porque ahí lo discutido era el LAYOUT, no un ícono.
+
+**Cómo aplicarlo.** Al decidir dónde aplicar algo transversal, ordenar por
+frecuencia de uso real, no por dónde se reportó el bug. Y reservar las pausas
+de validación para lo que tiene forma discutible (layouts, jerarquías), no para
+repetir un patrón ya aprobado.
