@@ -555,3 +555,79 @@ hubo tres iteraciones — porque ahí lo discutido era el LAYOUT, no un ícono.
 frecuencia de uso real, no por dónde se reportó el bug. Y reservar las pausas
 de validación para lo que tiene forma discutible (layouts, jerarquías), no para
 repetir un patrón ya aprobado.
+
+---
+
+## #73 — "No vamos a ir de la mano diciéndole al user qué debería hacer" (31-ago-2026)
+
+**Contexto.** Dejé abierto un pendiente ("¿las pujas necesitan reloj?") y lo
+defendí con un escenario: una operadora toma una licitación, se enferma, no
+avisa, y la licitación cierra desierta con 4 ofertas buenas. Javi lo desarmó:
+
+> *"Es un escenario ficticio muy tonto y muy alejado de la realidad. Para
+> empezar, alguien que tiene un trabajo real en la sociedad tiene un jefe y
+> alguien a quien reportar; si está enfermo lo reporta, y si no lo reporta los
+> jefes marcan, y si ven que no, toman las actividades por pura lógica de
+> responsabilidad. No es que estén jugando en una empresa de juguete o de niños
+> como para no saber que eso es imposible que pase en el mundo laboral — y si
+> pasa, habla muy mal de la persona como de la empresa. Además alguien con
+> coherencia y lógica entra y asigna la bid a otro user, para eso están los
+> jefes. Y los correos probablemente son de la empresa, así que tienen acceso.
+> No hay forma de que simplemente lo dejen. Nosotros no vamos a ir de la mano
+> diciéndole al user qué debería hacer, y para prevenir cosas como esa es que
+> creamos los roles principalmente."*
+
+**La señal — tres reglas en un solo mensaje:**
+
+1. **No diseñar contra disfunciones organizacionales.** Un empleado que
+   desaparece sin avisar es un problema de esa empresa, no un hueco del
+   producto. Compensarlo con software es asumir que el cliente es incompetente.
+2. **Si una feature YA resuelve el caso, no inventar una segunda.** Los roles y
+   el arrebato existen precisamente para esto. Yo había puesto el paso 5 de mi
+   propio ejemplo ("el jefe se la arrebata, dos clics") y aun así seguí
+   tratándolo como pendiente. Si la salida ya está en el ejemplo, no hay
+   pendiente.
+3. **No tutelar al usuario.** Enkoras da herramientas; no supervisa cómo la
+   empresa administra a su gente.
+
+**Cómo aplicarlo.** Antes de proponer una feature preventiva, preguntarse: ¿esto
+previene una falla del PRODUCTO, o una falla de la ORGANIZACIÓN que lo usa? Si
+es la segunda, no se construye. Y revisar la cola de pendientes con ese filtro:
+un "pendiente" cuyo remedio ya existe en el producto es ruido en la lista, y
+una lista con ruido deja de servir para priorizar (ver [[#70]]).
+
+---
+
+## #74 — "No estás poniendo atención" (31-ago-2026)
+
+**Contexto.** Tres veces en la misma sesión le expliqué pendientes usando premisas
+que contradicen decisiones YA tomadas y YA escritas en la memoria y en los docs:
+
+1. Propuse "marcar las empresas de tu equipo en el selector" — imposible: la 066
+   (cuenta exclusiva) la construimos y validamos ese mismo día. Un dueño no puede
+   aceptar invitación y un miembro no puede crear empresas, así que el selector
+   nunca mezcla. Su corrección: *"ya habíamos definido ese tema hace rato en la
+   sesión, no estás poniendo atención"*.
+2. Añadió: tampoco puedes tener sillas en dos cuentas — **la silla es por CUENTA
+   y cubre todas las empresas de ese dueño con rol parejo**.
+3. Expliqué el bug de eliminar cuenta con "dos empresas, cada una con su Premium".
+   Su corrección: *"no hay múltiples suscripciones por empresa de una sola cuenta,
+   ya hablamos esto miles de veces: es UNA suscripción y esa cubre todas las
+   empresas que tenga registrada esa cuenta; el límite era 2 en Premium 1 y 4 en
+   Premium 2. Ya te lo dije muchas veces y lo has apuntado en las memorias."*
+
+**La señal.** No es que la información faltara: **estaba escrita, la escribí yo, y
+aun así expliqué desde el código sin cruzarlo con las decisiones**. Leer el código
+dice cómo está hoy; leer la memoria dice hacia dónde va y qué ya se decidió. Usar
+solo lo primero produce explicaciones técnicamente correctas y de producto falsas
+— y le hace gastar mensajes corrigiendo cosas que ya cerró.
+
+Efecto secundario grave: casi propongo invertir en arreglar el flujo de
+cancelación "por empresa" que **5.F va a tirar** cuando llegue el plan por cuenta.
+Trabajo que se iba a la basura.
+
+**Cómo aplicarlo.** Antes de explicar o proponer CUALQUIER pendiente: releer lo que
+la memoria ya dice de ese tema y preguntarse *"¿el código que estoy viendo es el
+modelo vigente o uno que ya está condenado por una decisión?"*. Si hay conflicto
+entre el código y la decisión, la decisión manda — y eso se dice en la explicación,
+no se omite.

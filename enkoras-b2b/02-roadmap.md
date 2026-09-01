@@ -280,17 +280,22 @@ Migraciones nuevas que definen la estructura B2B:
   Decidir si la categoría se alinea con la filosofía "el activo le gana al
   pagador dormido".
 
-### 5.0 Quick wins de disponibilidad (independientes — no bloquean nada)
-- **Tope de 3 activas por empresa**: migración chiquita (constraint/trigger —
-  el candado vive en BD, como siempre) + mensaje claro en mi-empresa al
-  llegar al tope ("desactiva o edita una para publicar otra").
-- **Carrusel en las cards de resultados**: las disponibilidades rotan solas
-  (fade ~4s, relojes desfasados entre cards, pausa al hover, respeta
-  reduced-motion), chip "+N" siempre visible.
-- Pendientes menores heredados (ninguno bloquea): 2.4 alertas de búsqueda
-  guardada (sin UI) · email digest de notificaciones (el correo transaccional
-  llega con 5.D) · alta en Google Search Console (trámite, no código) ·
-  sincronizar la copia docs/02-roadmap.md del repo directorio-b2b.
+### 5.0 Quick wins de disponibilidad — ✅ HECHOS (verificado 31-ago-2026)
+- ✅ **Tope de 3 activas por empresa** — migración `053_tope_disponibilidades`:
+  trigger en BD (un botón deshabilitado se brinca con PostgREST directo) que
+  vigila el INSERT y también la REACTIVACIÓN por UPDATE. Service role exento.
+- ✅ **Carrusel en las cards de resultados** —
+  `components/search/CarruselDisponibilidad.tsx`.
+- Pendientes menores heredados (ninguno bloquea):
+  - **2.4 alertas de búsqueda guardada** — ⚠️ corrección 31-ago: NO es "falta la
+    UI". No existe la tabla de búsquedas guardadas; solo está reservado el tipo
+    `search_alert` en notifications y **jamás se ha emitido uno**. Es feature
+    completa, tamaño mediano-grande.
+  - ⛔ ~~email digest de notificaciones~~ **DESCARTADO por Javi (31-ago)**: "para
+    todo tienen que entrar a la app, no que tengan que usar el correo". El correo
+    es SOLO para problemas (invitación, incidencias), nunca para avisar actividad.
+  - Alta en Google Search Console (trámite, no código).
+  - ✅ Sincronizar la copia `docs/02-roadmap.md` del repo — hecho el 31-ago.
 
 ### Bloque M — Mi Empresa se vuelve dashboard (intercalado antes de 5.A, decidido 28-ago)
 
@@ -334,16 +339,31 @@ reclasificación. Sigue: **5.A asientos y roles**.
   interno de cada sección al estándar actual. Plan v1 se migra congelado
   (lo rehace 5.E).
 
-### 5.A Multiusuario — asientos y roles *(antes 5.2)*
-- La cuenta renta N asientos y los asigna por correo (invitaciones).
-- Roles: con los tokens pospuestos, el rol "Reclutador" pierde su razón
-  original — los roles se redefinen al diseñar (p. ej. **Admin** /
-  **Comprador**); queda abierto hasta el diseño detallado.
-- Técnica: tabla de miembros (empresa + persona + rol) + RLS por membresía en
-  lugar de `owner_id` único. Convive con el multiempresa (los límites nuevos:
-  2 por cuenta en Proveedor, 4 en Empresa completa).
-- Es la pieza MÁS estructural (toca la seguridad de toda la app) — por eso va
-  primero: todo lo demás se monta encima.
+### 5.A Multiusuario — asientos y roles — ✅ CERRADO Y EN PROD (31-ago-2026)
+Construido, auditado tres veces (más una auditoría de excelencia) y **probado en
+vivo por Javi con dos cuentas abiertas**. Migraciones **058-077**.
+
+- **`es_miembro(company_id, permiso)`** SECURITY DEFINER es el juez ÚNICO:
+  sustituyó a `owner_id = auth.uid()` en los 62 puntos de RLS, Storage y
+  funciones. Nunca volver al owner_id suelto.
+- **8 llaves** por silla (`lib/equipo.ts`): operar · publicar · ofertar · cerrar
+  · anuncio · verificacion · supervisar · equipo. Las plantillas Admin/Operador
+  solo SIEMBRAN; el permiso real vive en los switches, que el Dueño ajusta
+  cuando quiera. La llave `equipo` nunca la tiene un Operador (075).
+- **Rol parejo por CUENTA**: una silla cubre todas las empresas de ese dueño.
+- **Cuenta exclusiva (066)**: dueña O miembro, nunca las dos; y una silla a la
+  vez. Con silla ajena no se registran empresas propias.
+- **Propiedad del trabajo**: chats con claim y lease de 3 min (vence solo);
+  licitaciones con titular **SIN reloj** — pegajosa por diseño, decisión de Javi,
+  no reabrir. Jefes (dueño o `supervisar`) arrebatan.
+- **Candados de edición** por sección con "Cancelar edición", y **panel en vivo**:
+  el compañero ve aterrizar el guardado con atribución de quién cambió qué.
+- **El bloqueo amable**: sin la llave, el contenido se ve pero queda inerte, con
+  un candado discreto y el mensaje solo al intentar ("menos es más, un
+  candadito"). En panel, chat, publicar, ofertar y adjudicar.
+- **Sillas por plan (CONFIRMADO por Javi)**: base 3 = dueño + admin + operador ·
+  Premium 1 = 3+2 = **5** · Premium 2 = 3+4 = **7**. Los extras se cablean en 5.E.
+  Lo único abierto de este tema son los PRECIOS.
 
 ### 5.B Unificación Solicitudes ↔ Licitaciones *(antes 5.6)*
 - Se construye ANTES del paywall para candar el flujo ya unificado.
@@ -357,13 +377,17 @@ reclasificación. Sigue: **5.A asientos y roles**.
 
 ### 5.D Trial con vencimiento → cae a Presencia *(antes 5.4)*
 - El Free actual es indefinido → se convierte en trial de captación
-  (Explorador). El Plan Maestro propone 3 meses; **contrapropuesta de Javi:
-  1.5–2 meses máximo**. Pendiente de acordarse con socios.
+  (Explorador). ✅ **DECIDIDO POR JAVI (31-ago-2026): 1 MES.** Cierra el
+  "3 meses" del Plan Maestro y su propia contrapropuesta de 1.5–2:
+  *"un mes es suficiente, de igual lo podemos cambiar luego"*.
 - Al vencer NO se apaga la cuenta: cae al nivel **Presencia** (ver decisiones
   arriba) — visible sin operar.
-- Requiere **correo transaccional** (avisos de "tu prueba vence en X días"):
-  hoy la app no envía ningún email; Resend ya está contratado (lo usa Supabase
-  Auth) — falta cablearlo en la app.
+- **Correo transaccional**: Resend ya quedó cableado en la app (migración 074,
+  para la invitación al equipo; dominio enkoras.com verificado). ⚠️ PERO Javi
+  descartó el correo de NOTIFICACIONES el 31-ago — *"para todo tienen que entrar
+  a la app"*; el correo es solo para problemas. **Queda por decidir si el aviso
+  de "tu prueba vence en X días" cuenta como problema** (y va por correo) o si
+  también vive solo dentro de la app.
 
 ### Detalle de 5.B — Unificación Solicitudes ↔ Licitaciones
 - Un solo flujo "**Publica tu necesidad**" con dos modos:
@@ -392,7 +416,7 @@ planes se nombran por **lo que eres**, no por tamaño:
 | Plan | Para quién | Qué incluye |
 |---|---|---|
 | **Presencia** — $0 permanente | A donde CAE el trial vencido | Su empresa sigue visible y contactable en el directorio. NO opera: ni responder solicitudes, ni ofertar, ni convocar, ni publicar disponibilidad |
-| **Explorador** — $0, trial 1.5–2 meses | Conocer la plataforma | Home, categorías, búsqueda, contactar, 1 empresa. Al vencer: elige plan o cae a Presencia |
+| **Explorador** — $0, trial **1 mes** | Conocer la plataforma | Home, categorías, búsqueda, contactar, 1 empresa. Al vencer: elige plan o cae a Presencia |
 | **Proveedor** — $—/mes | El que **vende** | Hasta **2 empresas**, prioridad en búsquedas, responder solicitudes, **ofertar** en licitaciones EN VIVO |
 | **Empresa completa** — $—/asiento/mes | El que **compra** (o ambos) | Todo lo anterior + hasta **4 empresas** (principal + 3), publicar sobres cerrados, **convocar** EN VIVO, asientos con roles |
 
