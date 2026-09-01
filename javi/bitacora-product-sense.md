@@ -494,3 +494,9 @@
 - **Petición:** *"este anuncio sale muy pegado arriba, está mal en UI/UX, aparte le falta diseño"*.
 - **Razonamiento:** una pantalla de espera carga más fricción emocional que casi cualquier otra — te frenó cuando venías a HACER algo — y justo por eso merece diseño: el centro real de la pantalla, un anillo que dice cuánto falta sin leer nada, y una salida útil (ver tus publicadas) para que la espera no sea una celda. Coherente con su doctrina: las microinteracciones y las pantallas "menores" son señal de primera clase, no sobras.
 - **Término(s):** las pantallas "menores" no existen · la espera se diseña (progreso visible + salida útil) · el reloj sin porqué es castigo; con porqué es ritmo.
+
+### 83. "Esa es una fuga"
+- **Contexto:** dogfooding en la sala de la cotización con su cuenta secundaria: la puja la llevaba su otro usuario (el chip lo decía), el formulario de ofertar estaba cedido… y el botón "Adjuntar cotización" seguía vivo.
+- **Petición:** *"si se supone que la puja la está llevando mi otro compañero, no debe ser posible que yo pueda subir cotización — debe estar bloqueado también. Esa es una fuga"*.
+- **Razonamiento:** definió el alcance del claim mejor que yo: llevar la puja no es "ofertar" — es TODO el trabajo sobre esa puja, y la cotización formal (subirla, reemplazarla, borrarla) es trabajo sobre la puja. Y la palabra exacta: "fuga", no "falta un candadito" — intuyó que si la pantalla lo permitía, el hoyo era de fondo. Lo era: el candado del titular (061/064) vivía solo en `bids`; las policies de `tender_quotes` pedían la llave y nada más, alcanzable por PostgREST directo. Salió la 082.
+- **Término(s):** el claim cubre TODO el trabajo de la puja, no solo la acción principal · cada acción hermana hereda los candados de su acción principal · "fuga" = sospechar del fondo cuando la pantalla permite de más.
