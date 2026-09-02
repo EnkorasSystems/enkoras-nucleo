@@ -4,6 +4,13 @@
 **Para:** la mesa de socios — la decisión de precios que desbloquea 5.C→5.F
 **Alcance:** México primero (decisión de Javi); USA después.
 
+> ⚡ **DECISIÓN (Javi, 1-sep-2026):** se adopta la **columna JUSTO** —
+> **Proveedor $649 · Empresa completa $1,190 MXN/mes** — como default
+> operativo, **hasta que la mesa diga lo contrario**. Los socios recibieron
+> este estudio y la radiografía y harán sus propios análisis en paralelo;
+> el precio es reversible por diseño ("cambiar los precios y links y ya").
+> Con esto 5.C→5.F quedan desbloqueados.
+
 ---
 
 ## 1. Qué está vendiendo Enkoras (inventario real, auditado contra el código)
@@ -140,7 +147,8 @@ promedio es **$865** → la meta de $300K MRR se alcanza con **~347 cuentas**
 en vez de 600. Con solo 600 cuentas a esa mezcla: $519K MRR.
 
 ## 5. Lo que queda para la mesa de socios
-1. Elegir columna (mínimo / justo / techo) — o afinar números dentro del rango.
+1. ~~Elegir columna (mínimo / justo / techo)~~ — **decidido 1-sep: JUSTO**
+   (default de Javi, reversible; los socios validan con sus análisis).
 2. ¿Silla extra como palanca desde el día 1, o después?
 3. El precio de lanzamiento: ¿descuento fundador (p. ej. -20% de por vida a
    las primeras 100 cuentas) para sembrar liquidez de proveedores?

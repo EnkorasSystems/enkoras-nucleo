@@ -438,8 +438,8 @@ planes se nombran por **lo que eres**, no por tamaño:
 |---|---|---|
 | **Presencia** — $0 permanente | A donde CAE el trial vencido | Su empresa sigue visible y contactable en el directorio. NO opera: ni responder solicitudes, ni ofertar, ni convocar, ni publicar disponibilidad |
 | **Explorador** — $0, trial **1 mes** | Conocer la plataforma | Home, categorías, búsqueda, contactar, 1 empresa. Al vencer: elige plan o cae a Presencia |
-| **Proveedor** — $—/mes | El que **vende** | Hasta **2 empresas**, prioridad en búsquedas, responder solicitudes, **ofertar** en licitaciones EN VIVO |
-| **Empresa completa** — $—/asiento/mes | El que **compra** (o ambos) | Todo lo anterior + hasta **4 empresas** (principal + 3), publicar sobres cerrados, **convocar** EN VIVO, asientos con roles |
+| **Proveedor** — **$649 MXN/mes** (la cuenta, 5 sillas) | El que **vende** | Hasta **2 empresas**, prioridad en búsquedas, responder solicitudes, **ofertar** en licitaciones EN VIVO |
+| **Empresa completa** — **$1,190 MXN/mes** (la cuenta, 7 sillas) | El que **compra** (o ambos) | Todo lo anterior + hasta **4 empresas** (principal + 3), publicar sobres cerrados, **convocar** EN VIVO, asientos con roles |
 
 Reglas del catálogo:
 - **La verificación es requisito de los planes de operación** (confirmado por
@@ -456,7 +456,14 @@ Reglas del catálogo:
 - Aquí se deciden también: las palancas de upgrade heredadas del roadmap
   viejo (estadísticas pro · límite de disponibilidades por nivel) y la regla
   de ranking del listado de categoría (ver decisiones del re-alcance).
-- Ningún precio se publica hasta tener el desglose del $950.
+- ⚡ **PRECIOS DECIDIDOS (Javi, 1-sep-2026 — default hasta que la mesa diga
+  lo contrario):** la columna JUSTO del estudio (16-estudio-precios.md):
+  **Proveedor $649** · **Empresa completa $1,190** MXN/mes por cuenta, sin
+  plan anual; trial y Presencia gratis. *"Ya les pasé los análisis a los
+  socios, ellos harán los suyos. Si algo cambia, tan simple como cambiar los
+  precios y links."* Esto SUSTITUYE al bloqueo del desglose del $950: el $950
+  quedó dentro del rango (es el mínimo defendible de Empresa completa) y el
+  estudio lo respalda con mercado. → **5.C, 5.D, 5.E y 5.F desbloqueados.**
 - Los cambios de plan se hacen directo, sin planes de transición: no hay
   clientes reales registrados todavía (el marketing no ha arrancado).
 - La suscripción de profesionistas ($800) es del lado Talento — no es de esta
@@ -525,4 +532,4 @@ desglosado.
 - **Fase 2:** el riesgo es construir mensajería compleja de más. Control: chat 1-a-1 simple; nada de grupos, archivos ni features de Slack.
 - **Fase 3:** el riesgo es lanzar sin masa mínima. Control: no se anuncia públicamente hasta tener el seed de proveedores invitados con perfiles completos (el playbook de mensajes directos ya está probado con Tu Local).
 - **Fase 4:** el riesgo es expandir sin datos. Control: cada estado nuevo se abre solo cuando las métricas del anterior lo justifican.
-- **Fase 5:** dos riesgos. (a) El acantilado del trial: si el vencimiento borrara empresas, cada trial vencido vaciaría el catálogo — control: el nivel Presencia (visible sin operar), el directorio nunca se vacía. (b) Fijar precios sin datos — control: nada se publica sin el desglose del $950; y cuando reviva la IA (v2), instrumentar el costo por búsqueda antes de anunciar precio de token.
+- **Fase 5:** dos riesgos. (a) El acantilado del trial: si el vencimiento borrara empresas, cada trial vencido vaciaría el catálogo — control: el nivel Presencia (visible sin operar), el directorio nunca se vacía. (b) Fijar precios sin datos — control cumplido el 1-sep: precios fijados con el estudio de mercado (16-estudio-precios.md), reversibles por diseño; y cuando reviva la IA (v2), instrumentar el costo por búsqueda antes de anunciar precio de token.
