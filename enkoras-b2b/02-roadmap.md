@@ -369,6 +369,27 @@ vivo por Javi con dos cuentas abiertas**. Migraciones **058-077**.
 - Se construye ANTES del paywall para candar el flujo ya unificado.
 - (El detalle del flujo, en su sección original más abajo — sin cambios.)
 
+### 🏁 BLOQUE DE MONETIZACIÓN — CONSTRUIDO COMPLETO (2-sep-2026), DORMIDO TRAS EL FLAG
+
+Los cuatro bloques de abajo (5.C→5.F) **ya están construidos y en prod**
+(migraciones 087-091, todo validado con BEGIN/ROLLBACK y suite 280/280),
+re-organizados como partes A-F de UNA sola feature:
+**A** el plan vive en la CUENTA (account_plans, trial=estado que cae solo,
+cortesías) · **B** el trial nace al estrenar empresa (incluida la ENTREGA
+del semillero) + avisos in-app/correo con dedupe · **C** los candados del
+cuadro (convocar=EC · responder=Proveedor+ · disponibilidad=Proveedor+ ·
+empresas 1/2/4 · sillas 3/5/7) con el principio "candados en las entradas,
+gestión de lo vivo libre" · **D** /planes v2 con el precio a la vista y
+checkout por cuenta · **E** webhook Stripe v2 (falla cerrada, past_due
+gracia, cortesía intocable) + portal + retiro del v1 · **F** el
+posicionamiento es del plan (DESTACADO + ranking +0.08 = plan que opera,
+trial y cortesía incluidos).
+
+⚡ **TODO duerme tras `app_config.candados_plan = false`**: prod se comporta
+idéntico a antes del bloque. **EL ENCENDIDO** (decisión de Javi) es: subir
+los 2 price IDs a Vercel → verificar cortesías → prender el flag → probar
+checkout live con cupón 100% → dogfooding del ciclo completo.
+
 ### 5.C Candado de pago a Licitaciones en vivo *(antes 5.5)*
 - El módulo (ya construido y en producción) pasa a ser **complemento de pago**:
   ofertar EN VIVO desde Proveedor; convocar solo en Empresa completa. Se
