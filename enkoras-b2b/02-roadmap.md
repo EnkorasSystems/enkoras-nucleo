@@ -375,6 +375,27 @@ vivo por Javi con dos cuentas abiertas**. Migraciones **058-077**.
   implementa directo — hoy no hay clientes reales registrados (aún sin
   marketing), así que no hay nadie a quien migrar ni transiciones que cuidar.
 
+### ⚡ RE-DISEÑO DEL TRIAL Y LOS NIVELES (decidido por Javi, 1-sep-2026)
+> *"El nombre lo dice: trial es gratis y te da acceso."* El trial deja de ser
+> un nivel de solo-mirar y pasa a ser **Empresa completa entera, gratis 1 mes**
+> — un trial que no deja operar es un tour, y lo que Enkoras vende es OPERAR.
+>
+> 1. **Trial = Empresa completa por 1 mes** (estado temporal, no plan): convoca,
+>    publica quotes, cotiza, puja, invita a su equipo. Al vencer cae a Presencia.
+> 2. **"Explorador" desaparece como nivel** — quedan 3 niveles reales
+>    (Presencia $0 · Proveedor · Empresa completa) + el estado de trial.
+> 3. **Anti-abuso gratis**: operar exige verificación RFC TAMBIÉN durante el
+>    trial, y el RFC es único por empresa → una empresa solo vive UN trial en
+>    su vida. No hay sistema anti-abuso que construir: es el candado ya
+>    decidido haciendo doble trabajo.
+> 4. **El cuadro de permisos por acción** (confirmado el mismo día):
+>    publicar (quotes o EN VIVO) = Empresa completa · responder (cotizar o
+>    pujar) = Proveedor hacia arriba · Presencia y trial-vencido: visibles,
+>    contactables, reciben invitaciones como anzuelo, NO operan.
+> La escalera: llega → 1 mes viviendo como Empresa completa (crea el hábito)
+> → vence → lo siguen buscando y le llegan invitaciones que no puede responder
+> → paga. Las tablas de abajo se leen con este ajuste encima.
+
 ### 5.D Trial con vencimiento → cae a Presencia *(antes 5.4)*
 - El Free actual es indefinido → se convierte en trial de captación
   (Explorador). ✅ **DECIDIDO POR JAVI (31-ago-2026): 1 MES.** Cierra el
