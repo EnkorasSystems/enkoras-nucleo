@@ -53,3 +53,24 @@ para no perderse y no hacer ruido. Solo se tocan si su condición se cumple.
 - **Qué queda:** nada operativo. Este pendiente es solo "si algún día un
   borrado falla a mitad de camino y deja un archivo colgado, hacer un script
   que barra". Como hoy no existe ese archivo, no hay nada que construir.
+
+## 4. Aparcados del AUDIT2 pre-lanzamiento (2-sep, noche — informes 21-*)
+
+- **Observabilidad** (el único S3 SIN arreglar — necesita decisión/cuenta de
+  Javi): hoy no hay Sentry, ni log drain, ni alerta de uptime; si algo cae a
+  las 3am, avisa un cliente o el correo de Stripe. Mínimo digno: Sentry
+  gratis + un uptime externo (UptimeRobot). Son ~30 min con su cuenta.
+- **Columnas huérfanas v1** en companies (plan, stripe_*) + 3 índices
+  muertos + 4 FKs tibias sin índice: migración de limpieza post-lanzamiento.
+- **CSP**: sigue diferida (declarada en next.config; requiere afinar GA+Stripe).
+- **Soft-404 en /empresa y /categoria inexistentes** (200 + noindex por el
+  loading.tsx que streamea): Google desindexa igual por el noindex; el 404
+  duro exigiría quitar sus loading (UX > pureza). La HOJA de licitación sí
+  quedó con 404 real (su loading se quitó — era liviana).
+- **Confirmado POR DISEÑO (#86, candados en las entradas):** contraofertas y
+  aceptaciones NO pasan por candado de plan — la negociación EMPEZADA se
+  puede terminar aunque el plan venza; para entrar sí se exigió plan.
+- **Doble checkout en 2 pestañas**: la sub desplazada se cancela sin
+  reembolsar su primer mes (raro; caso de soporte manual documentado).
+- Menores estéticos aceptados: hasta 4 loops simultáneos en el panel del
+  login, órbitas sin pausa fuera de viewport, halo residual en algún tap.
